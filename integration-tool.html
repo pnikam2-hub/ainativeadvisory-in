@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic PMO Integration · Client Onboarding · AI Native Advisory India</title>
+  <meta name="description" content="A ~30-minute onboarding questionnaire that scopes your custom Agentic PMO integration — Primavera P6 / MS Project / CDE sync. Answers auto-save; export to Markdown to send back." />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="integration-tool-styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/">AI Native Advisory. India</a>
+      <nav class="partner-line">Agentic PMO · <strong>Integration Layer onboarding</strong></nav>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="wrap toolbar-inner">
+      <div class="progress" aria-live="polite">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="progress-label" class="progress-label">0 of 0 answered</span>
+      </div>
+      <div class="toolbar-actions">
+        <span id="save-state" class="save-state" aria-live="polite">All changes saved in this browser</span>
+        <button id="copy" type="button" class="tb">Copy as Markdown</button>
+        <button id="download" type="button" class="tb">Download .md</button>
+        <button id="print" type="button" class="tb">Print / PDF</button>
+        <button id="clear" type="button" class="tb danger">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Integration Layer · Client Onboarding</p>
+      <h1>Let&rsquo;s scope your Agentic PMO integration.</h1>
+      <p class="lede">
+        Answer the questions below to scope the custom sync connector between your scheduling tool
+        (Primavera P6 / MS Project) and Agentic PMO. Your answers drive the field mappings, sync
+        cadence, and effort estimate. It&rsquo;s also <em>why this connector is custom-built</em>
+        &mdash; your custom fields and workflow are unique.
+      </p>
+      <p class="meta">
+        ~30&ndash;45 minutes &middot; answers auto-save in this browser &middot; export to Markdown
+        and email it back when done. Some questions are best answered by your PMO lead and your
+        IT/API owner together.
+      </p>
+    </section>
+
+    <div id="app"><!-- sections rendered by app.js --></div>
+
+    <section class="cta">
+      <h2>What happens next</h2>
+      <ol class="next">
+        <li>We review your answers and confirm <strong>scope, custom-field mappings, and sync direction</strong>.</li>
+        <li>We validate API access with a test call to your tool &mdash; <em>Phase 1: Discovery</em>.</li>
+        <li>We build and test the connector against sample data &mdash; <em>Phase 2: Build</em>.</li>
+        <li>We deploy, run an initial full sync, and monitor for 48 hours &mdash; <em>Phase 3: Deploy</em>.</li>
+        <li>We hand over the source code and documentation &mdash; <em>Phase 4: Handover</em>.</li>
+      </ol>
+      <p class="estimate"><strong>Estimated build effort: 8&ndash;12 days</strong> after this questionnaire is complete and API access is confirmed. The integration-layer code is owned by you.</p>
+    </section>
+
+    <section class="principles">
+      <h2>What we will not do</h2>
+      <ul>
+        <li><strong>Pilot before scale.</strong> Every engagement begins with a bounded pilot against one project.</li>
+        <li><strong>Your schedule of record stays authoritative.</strong> Default sync is one-way into Agentic PMO; we never write back without explicit configuration.</li>
+        <li><strong>No schema lock-in.</strong> The connector talks to Agentic PMO&rsquo;s REST API only &mdash; no direct database writes, no backend changes.</li>
+        <li><strong>Indicative, not inflated.</strong> This scopes honestly; it is not a fixed quote until API access and custom fields are confirmed.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>AI Native Advisory India &middot; Agentic PMO Integration Layer onboarding.</p>
+      <p class="muted">Answers are stored only in your browser (localStorage) until you export them. Nothing is sent anywhere automatically.</p>
+    </div>
+  </footer>
+
+  <script src="integration-tool-app.js"></script>
+</body>
+</html>
