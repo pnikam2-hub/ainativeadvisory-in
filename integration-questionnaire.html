@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration Onboarding Questionnaire — Agentic PMO</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Download the Agentic PMO Integration Layer Client Onboarding Questionnaire — scope your Primavera P6 or MS Project connector build in 30-45 minutes.">
+  <meta name="robots" content="index, follow">
+  <style>
+    .questionnaire-page { max-width: 780px; margin: 0 auto; padding: 3rem 24px 4rem; }
+    .questionnaire-page h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    .questionnaire-page .meta { color: var(--color-ink-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    .questionnaire-page h2 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin: 2.5rem 0.5rem 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--color-gold);
+      color: var(--color-teal-dark);
+    }
+    .questionnaire-page h3 {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0.25rem 0 0.5rem;
+      color: var(--color-ink);
+    }
+    .questionnaire-page .field { margin-bottom: 1rem; }
+    .questionnaire-page .field-label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    .questionnaire-page .field-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--color-teal);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+    }
+    .questionnaire-page .field-hint {
+      font-size: 0.82rem;
+      color: var(--color-ink-muted);
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+    .questionnaire-page .field-input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--color-slate);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      background: #fff;
+      color: var(--color-ink);
+    }
+    .questionnaire-page .field-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--color-slate);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      background: #fff;
+      color: var(--color-ink);
+      resize: vertical;
+    }
+    .questionnaire-page .callout {
+      background: var(--color-cream);
+      border-left: 4px solid var(--color-gold);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--color-ink-secondary);
+    }
+    .questionnaire-page .callout strong { color: var(--color-ink); }
+    .questionnaire-page .next-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .questionnaire-page .next-step {
+      text-align: center;
+      padding: 0.75rem 0.5rem;
+      background: var(--color-cream);
+      border: 1px solid var(--color-slate-soft);
+    }
+    .questionnaire-page .next-step .step-num {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-teal);
+    }
+    .questionnaire-page .next-step .step-label {
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+    .questionnaire-page .download-bar {
+      text-align: center;
+      padding: 2rem;
+      background: var(--color-teal);
+      margin: 2rem 0;
+    }
+    .questionnaire-page .download-bar p { color: rgba(255,255,255,0.85); font-size: 0.9rem; }
+    .questionnaire-page .section-inline {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--color-bg);
+      border: 1px solid var(--color-slate-soft);
+    }
+    .questionnaire-page .section-inline h3 {
+      font-family: var(--font-serif);
+      color: var(--color-teal);
+      border: none;
+      padding: 0;
+      margin: 0 0 0.5rem 0;
+    }
+    .questionnaire-page .print-only { display: none; }
+    @media print {
+      .site-nav, .site-footer, .questionnaire-page .download-bar { display: none; }
+      .questionnaire-page { padding: 0; }
+      .questionnaire-page .field-input, .questionnaire-page .field-textarea { border: 1px dashed #999; }
+    }
+    @media (max-width: 700px) {
+      .questionnaire-page .next-steps { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">AI Native Advisory.</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="https://ainativeorganisations.com" target="_blank" rel="noopener">Main Site</a>
+      <a href="/">Advisory</a>
+      <a href="/#agentic-pmo">Agentic PMO</a>
+      <a href="https://industry.ainativeorganisations.com" target="_blank" rel="noopener">Industry 4.0</a>
+      <a href="/#contact" class="btn btn-gold btn-sm">Work With Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Questionnaire Page -->
+<div class="questionnaire-page">
+
+  <div class="download-bar">
+    <h2 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.5rem;">Agentic PMO — Integration Layer</h2>
+    <h3 style="color: var(--color-gold); font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 1rem;">Client Onboarding Questionnaire</h3>
+    <p>Download the markdown version to fill in your preferred editor, or use the form below and print when complete.</p>
+    <div style="margin-top: 1rem;">
+      <a href="/agentic-pmo-integration-questionnaire.md" class="btn btn-gold" download>Download Markdown</a>
+      <a href="#" onclick="window.print()" class="btn btn-white" style="margin-left: 0.5rem;">Print / Save PDF</a>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Purpose:</strong> This questionnaire gathers what we need to design and build the custom sync connector between your scheduling tool (Primavera P6 / MS Project) and Agentic PMO. Your answers scope the work, drive the field mappings, and set the sync cadence. It is also <em>why this connector is custom-built</em> — your custom fields and workflow are unique, so a generic off-the-shelf connector won't fit.
+    <br><br>
+    <strong>Time to complete:</strong> ~30–45 minutes. Some questions are best answered by your PMO/scheduling lead and your IT/API owner together.
+    <br><br>
+    <strong>Confidentiality:</strong> Responses are used only to scope and build your integration. API credentials, when shared later, are stored in environment variables — never hardcoded in source.
+  </div>
+
+  <!-- About You -->
+  <h2>About You</h2>
+
+  <div class="field">
+    <span class="field-label">Client / organisation</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+  <div class="field">
+    <span class="field-label">Primary contact (name, role)</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+  <div class="field">
+    <span class="field-label">Email / phone</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+  <div class="field">
+    <span class="field-label">Target project(s) or portfolio</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+  <div class="field">
+    <span class="field-label">Date completed</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+  <div class="field">
+    <span class="field-label">Completed by (name, role)</span>
+    <input type="text" class="field-input" placeholder="">
+  </div>
+
+  <!-- Section 1 -->
+  <h2>1. Your PMO / Scheduling Tool Stack</h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">1</span>Which tool is your schedule of record?</span>
+    <input type="text" class="field-input" placeholder="Primavera P6, MS Project, MS Planner, Jira, other?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">2</span>Version &amp; deployment</span>
+    <input type="text" class="field-input" placeholder="e.g. Primavera Cloud v4+, Primavera P6 EPPM on-prem, MS Project Online 2019/2021">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">3</span>Is REST API access available?</span>
+    <textarea class="field-textarea" placeholder="If on-premises, is there an API gateway, or is it cloud-hosted?"></textarea>
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">4</span>Authentication method, and who manages the credentials?</span>
+    <input type="text" class="field-input" placeholder="OAuth 2.0, API token, Entra ID app registration, basic auth?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">5</span>Do you also use a separate cost/ERP or resource system that you'd eventually want synced?</span>
+    <textarea class="field-textarea" placeholder="Scope-defining — even if the answer is 'later, not now'"></textarea>
+  </div>
+
+  <!-- Section 2 -->
+  <h2>2. Scope</h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">6</span>Which projects should be synced?</span>
+    <input type="text" class="field-input" placeholder="All active projects, a specific portfolio, or one pilot project first?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">7</span>Roughly how many projects, and how many tasks per project?</span>
+    <input type="text" class="field-input" placeholder="e.g. 3 projects × ~800 tasks; or one mega-project with 5000+ tasks">
+    <div class="field-hint">This drives pagination and the sync interval.</div>
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">8</span>Which fields should be synced?</span>
+    <input type="text" class="field-input" placeholder="Task name, status, dates, assignee, estimated hours, actual hours, custom fields?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">9</span>Milestones — do you use milestones and want them tracked?</span>
+    <textarea class="field-textarea" placeholder="Agentic PMO has no native milestone type — we model milestones as special tasks. We just need to know whether you want them carried over."></textarea>
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">10</span>Sync direction?</span>
+    <input type="text" class="field-input" placeholder="One-way: scheduling tool → Agentic PMO only; or bidirectional?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">11</span>Conflict policy — when the same field is edited in both systems, who wins?</span>
+    <input type="text" class="field-input" placeholder="Scheduling tool authoritative, Agentic PMO authoritative, or flag for manual review">
+  </div>
+
+  <!-- Section 3 -->
+  <h2>3. Custom Fields <span style="font-size: 0.8rem; color: var(--color-ink-muted); font-family: var(--font-sans); font-weight: 400;">— the #1 driver of build effort</span></h2>
+
+  <div class="callout">
+    <strong>Why we ask:</strong> Custom fields are the main reason a generic connector won't work and the biggest variable in build time. Thorough answers here save the most effort downstream.
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">12</span>List all custom fields / UDFs used on the target projects.</span>
+    <textarea class="field-textarea" placeholder="List all UDFs here..."></textarea>
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">13</span>For each custom field: name, data type, which discipline/team uses it, and what it tracks.</span>
+    <textarea class="field-textarea" rows="4" placeholder="Example: UDF_Discipline_Code — text — used by Process Engineering to tag tasks."></textarea>
+  </div>
+
+  <!-- Section 4 -->
+  <h2>4. Schedule &amp; Cadence</h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">14</span>Acceptable sync cadence?</span>
+    <input type="text" class="field-input" placeholder="Every 15 min, 30 min, 1 hour, daily?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">15</span>Blackout windows?</span>
+    <input type="text" class="field-input" placeholder="Month-end close, system maintenance, shift changes">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">16</span>Is this a new project starting fresh in Agentic PMO, or existing data in both systems?</span>
+    <textarea class="field-textarea" placeholder="If existing data, we'll need to reconcile on first sync."></textarea>
+  </div>
+
+  <!-- Section 5 -->
+  <h2>5. Infrastructure &amp; Network</h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">17</span>Where should the sync engine run?</span>
+    <input type="text" class="field-input" placeholder="Same server as Agentic PMO, your infrastructure, or cloud?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">18</span>Does the sync engine need to traverse a corporate proxy, VPN, or firewall?</span>
+    <input type="text" class="field-input" placeholder="To reach your Primavera / MS Project / CDE APIs">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">19</span>Is there a test/staging environment for your scheduling tool?</span>
+    <input type="text" class="field-input" placeholder="That we can integration-test against">
+  </div>
+
+  <!-- Section 6 -->
+  <h2>6. Notifications &amp; Alerts</h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">20</span>Where should sync-failure alerts be sent?</span>
+    <input type="text" class="field-input" placeholder="Email, Slack, MS Teams, PagerDuty?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">21</span>Want a daily sync summary of what changed?</span>
+    <input type="text" class="field-input" placeholder="Yes / No — and to whom">
+  </div>
+
+  <!-- Section 7 -->
+  <h2>7. Document / CDE Integration <span style="font-size: 0.8rem; color: var(--color-ink-muted); font-family: var(--font-sans); font-weight: 400;">— optional</span></h2>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">22</span>Do you use a Common Data Environment (CDE)?</span>
+    <input type="text" class="field-input" placeholder="Autodesk Construction Cloud, Aconex, Procore, SharePoint, other?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">23</span>Which document milestones should Agentic PMO monitor?</span>
+    <input type="text" class="field-input" placeholder="Permit submissions, drawing approvals, commissioning document sign-offs?">
+  </div>
+
+  <div class="field">
+    <span class="field-label"><span class="field-num">24</span>Does the CDE have API access, and is it enabled?</span>
+    <input type="text" class="field-input" placeholder="Yes / No — and who manages the credentials">
+  </div>
+
+  <!-- What Happens Next -->
+  <h2>What Happens Next</h2>
+
+  <div class="next-steps">
+    <div class="next-step">
+      <div class="step-num">1</div>
+      <div class="step-label">Discovery</div>
+      <div style="font-size: 0.7rem; color: var(--color-ink-muted);">Review answers, validate API access, map fields</div>
+    </div>
+    <div class="next-step">
+      <div class="step-num">2</div>
+      <div class="step-label">Build</div>
+      <div style="font-size: 0.7rem; color: var(--color-ink-muted);">Build connector, test against sample data</div>
+    </div>
+    <div class="next-step">
+      <div class="step-num">3</div>
+      <div class="step-label">Deploy</div>
+      <div style="font-size: 0.7rem; color: var(--color-ink-muted);">Initial full sync, 48-hour monitoring</div>
+    </div>
+    <div class="next-step">
+      <div class="step-num">4</div>
+      <div class="step-label">Handover</div>
+      <div style="font-size: 0.7rem; color: var(--color-ink-muted);">Source code and documentation</div>
+    </div>
+    <div class="next-step" style="background: var(--color-teal); border-color: var(--color-teal-dark);">
+      <div class="step-num" style="color: var(--color-gold);">8–12</div>
+      <div class="step-label" style="color: rgba(255,255,255,0.8);">Days Total</div>
+      <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6);">After questionnaire complete</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Estimated build effort: 8–12 days</strong> after this questionnaire is complete and API access is confirmed. The integration-layer code is owned by you.
+  </div>
+
+  <div class="download-bar">
+    <p style="margin-bottom: 0.75rem;">Complete this form in your browser, then save as PDF or print.</p>
+    <a href="#" onclick="window.print()" class="btn btn-gold">Print / Save as PDF</a>
+    <a href="/agentic-pmo-integration-questionnaire.md" class="btn btn-white" style="margin-left: 0.5rem;" download>Download Markdown Instead</a>
+    <p style="margin-top: 1rem; font-size: 0.85rem;">Return completed form to: <strong>hello@ainativeorganisations.com</strong></p>
+  </div>
+
+  <p style="text-align: center; font-size: 0.8rem; color: var(--color-ink-muted); margin-top: 2rem;">
+    Agentic PMO by AI Native Organisations — Integration Layer Onboarding, v1.0
+  </p>
+
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">AI Native Advisory.</span>
+        <p>Helping leaders design and build organisations native to an AI world — from readiness diagnostics to governed delivery.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="https://ainativeorganisations.com" target="_blank" rel="noopener">Main Site</a>
+        <a href="https://ainativeorganisations.com/framework" target="_blank" rel="noopener">Framework</a>
+        <a href="https://industry.ainativeorganisations.com" target="_blank" rel="noopener">Industry 4.0</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="/#services">Readiness Diagnostic</a>
+        <a href="/#agentic-pmo">Agentic PMO</a>
+        <a href="mailto:hello@ainativeorganisations.com">Email Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 AI Native Organisations. Advisory practice led by Prashant Nikam.
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+</script>
+</body>
+</html>
