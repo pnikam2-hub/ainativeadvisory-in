@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>JanPulse Signal Extraction &mdash; human ratings</title>
+<style>
+  :root {
+    --ink:#2A211A; --ink-soft:#4A3E34; --paper:#FBF7EC; --paper-warm:#F1E9D6;
+    --paper-deep:#E8DDC8; --brick:#8B2E2A; --brick-dark:#6E2320;
+    --forest:#4E6A55; --sand:#D8CDB6; --muted:#6B5F53;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:"DM Sans","Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.55; }
+  header { background:var(--ink); color:var(--paper); padding:26px 30px; }
+  h1 { font-family:"DM Serif Display",Georgia,serif; font-size:26px; margin:0 0 6px; font-weight:400; }
+  header p { margin:0; color:#D8CDB6; font-size:14px; max-width:80ch; }
+  main { max-width:960px; margin:0 auto; padding:26px 30px 90px; }
+  .bar { position:sticky; top:0; z-index:20; background:var(--paper-warm);
+         border-bottom:1px solid var(--sand); padding:12px 30px; margin:0 -30px 22px;
+         display:flex; gap:18px; align-items:center; flex-wrap:wrap; font-size:14px; }
+  .bar strong { color:var(--brick); }
+  .axis-note { background:var(--paper-warm); border:1px solid var(--sand); border-left:4px solid var(--brick);
+               padding:14px 18px; margin-bottom:24px; font-size:13.5px; color:var(--ink-soft); }
+  .axis-note b { color:var(--ink); }
+  .axis-note div { margin:5px 0; }
+  .item { background:#fff; border:1px solid var(--sand); border-radius:10px;
+          padding:20px 22px; margin-bottom:16px; }
+  .item.done { border-left:5px solid var(--forest); }
+  .item.unclear { border-left:5px solid var(--muted); opacity:.75; }
+  .item .meta { font-size:12px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase;
+                display:flex; justify-content:space-between; align-items:center; }
+  .text { font-family:"DM Serif Display",Georgia,serif; font-size:19px; margin:12px 0 18px; }
+  .rows { display:grid; gap:12px; }
+  .row { display:grid; grid-template-columns:130px 1fr 78px; gap:14px; align-items:center; }
+  .row label { font-size:13px; color:var(--ink-soft); }
+  .row input[type=range] { width:100%; accent-color:var(--brick); }
+  .row input[type=number] { width:78px; padding:5px 7px; border:1px solid var(--sand);
+                            border-radius:6px; font-family:inherit; font-size:13px; text-align:right;
+                            background:var(--paper); color:var(--ink); }
+  .clr { font-size:12.5px; color:var(--muted); background:none; border:1px solid var(--sand);
+         border-radius:999px; padding:5px 13px; cursor:pointer; font-family:inherit; }
+  .clr:hover { border-color:var(--brick); color:var(--brick); }
+  .clr.active { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .acts { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  button.big { background:var(--ink); color:var(--paper); border:none; border-radius:999px;
+               padding:11px 24px; font-family:inherit; font-size:14px; cursor:pointer; }
+  button.big:hover { background:var(--brick); }
+  button.ghost { background:none; color:var(--ink); border:1px solid var(--sand); }
+  button.ghost:hover { border-color:var(--brick); color:var(--brick); background:none; }
+  #out { width:100%; height:190px; margin-top:14px; font-family:ui-monospace,Consolas,monospace;
+         font-size:12px; padding:12px; border:1px solid var(--sand); border-radius:8px;
+         background:var(--paper-warm); color:var(--ink); }
+  .panel { background:var(--paper-deep); border:1px solid var(--sand); border-radius:10px;
+           padding:22px; margin-top:30px; }
+  .panel h2 { font-family:"DM Serif Display",Georgia,serif; font-weight:400; font-size:20px; margin:0 0 8px; }
+  .panel p { font-size:13.5px; color:var(--ink-soft); margin:0 0 14px; }
+  .status { font-size:13px; color:var(--forest); margin-left:6px; }
+  .namewrap { font-size:13px; color:var(--ink-soft); display:flex; align-items:center; gap:7px; }
+  .namewrap input { padding:6px 9px; border:1px solid var(--sand); border-radius:6px;
+                    font-family:inherit; font-size:13px; background:#fff; color:var(--ink);
+                    width:200px; }
+  .namewrap input.warn { border-color:var(--brick); background:#FDF1F0; }
+</style>
+</head>
+<body>
+<div style="background:#2A211A;color:#D8CDB6;font-family:Manrope,'Segoe UI',system-ui,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:11px 30px;">
+  <a href="/" style="color:#D8CDB6;text-decoration:none;">&larr; JanPulse</a>
+  <span style="opacity:.45;">&nbsp;&middot;&nbsp;</span>
+  <a href="/evidence" style="color:#D8CDB6;text-decoration:none;">Evidence</a>
+  <span style="opacity:.45;">&nbsp;&middot;&nbsp;</span>
+  <a href="/technology.html" style="color:#D8CDB6;text-decoration:none;">Ratings sheet</a>
+</div>
+
+<header>
+  <h1>JanPulse signal extraction &mdash; human ratings</h1>
+  <p>Rate each response on three axes. Your numbers are the ground truth the module is measured
+     against, so rate what you actually read, not what you would expect a system to say. No model
+     scores appear on this page, deliberately. Progress saves automatically in this browser, and
+     nothing is uploaded anywhere &mdash; you copy your ratings out at the end.</p>
+</header>
+<main>
+  <div class="bar">
+    <span>Rated <strong id="cnt">0</strong> of <strong id="tot">0</strong></span>
+    <span class="status" id="save"></span>
+    <label class="namewrap" for="rater">Your name
+      <input type="text" id="rater" placeholder="needed for the export" autocomplete="off">
+    </label>
+    <span class="acts" style="margin-left:auto">
+      <button class="clr" id="reset">Reset all</button>
+      <button class="clr" id="top">Back to top</button>
+    </span>
+  </div>
+
+  <div class="axis-note">
+    <div><b>Valence</b> &mdash; pleasant to unpleasant. <span id="h-valence"></span></div>
+    <div><b>Arousal</b> &mdash; calm to intense. <span id="h-arousal"></span></div>
+    <div><b>Hedging</b> &mdash; certain to qualified. <span id="h-hedging"></span></div>
+    <div style="color:var(--muted);font-size:12.5px;margin-top:8px">
+      Valence and arousal are independent (Russell's Circumplex Model of Affect). A calm, content
+      response is pleasant with <i>low</i> arousal; fury is unpleasant with <i>high</i> arousal.
+      Judge the text only &mdash; not your opinion of the scheme or the speaker.
+      Two decimal places is plenty. If a scale is genuinely unclear, leave it at <i>--</i> rather
+      than guessing.
+    </div>
+  </div>
+
+  <div id="items"></div>
+
+  <div class="panel">
+    <h2>Export</h2>
+    <p id="exmsg">Rate every item, put your name in the box at the top, then generate the CSV and
+       send it back to the person who shared this link with you. Rates left alone are exported blank
+       and excluded from the analysis.</p>
+    <div class="acts">
+      <button class="big" id="gen">Generate &amp; copy CSV</button>
+      <button class="big ghost" id="dl" disabled>Download ratings.csv</button>
+      <span class="status" id="copied"></span>
+    </div>
+    <textarea id="out" spellcheck="false" placeholder="Click Generate &amp; copy CSV"></textarea>
+  </div>
+</main>
+
+<script>
+const STIMULI = [{"id": "E08", "text": "It's okay I suppose. I mean, the water comes, mostly. Some days not. What can you do.", "lang": "en"}, {"id": "E15", "text": "I am worried about next month's installment. What if the scheme stops? Nobody has told us anything.", "lang": "en"}, {"id": "E01", "text": "The training centre opened on time every single day. My daughter finished the whole course.", "lang": "en"}, {"id": "E20", "text": "The survey person came to the house. She was very nice. She wrote everything down properly.", "lang": "en"}, {"id": "E22", "text": "We don't need your schemes. We need the road to be built. That is all we have asked for three years.", "lang": "en"}, {"id": "E18", "text": "Honestly? I gave up on this whole thing. It's not worth the travel cost any more.", "lang": "en"}, {"id": "H05", "text": "Kaam ho gaya, bahut accha. Ab tension nahi hai.", "lang": "hinglish"}, {"id": "E17", "text": "They asked for 500 rupees to move the file faster. I paid it. What else was I supposed to do?", "lang": "en"}, {"id": "E11", "text": "Delighted! My son got the placement letter yesterday, whole family is celebrating.", "lang": "en"}, {"id": "E13", "text": "Nothing works here. Nothing has ever worked here. I am tired.", "lang": "en"}, {"id": "E09", "text": "I was terrified when the officer called. I thought they would cancel everything.", "lang": "en"}, {"id": "E07", "text": "Very very angry. They lost my file and now they say I must start again from the beginning.", "lang": "en"}, {"id": "E05", "text": "I don't know. I stopped expecting anything from these people long ago.", "lang": "en"}, {"id": "E06", "text": "The school is real, the building is there, but the teacher never comes. Make of that what you will.", "lang": "en"}, {"id": "E03", "text": "I can't believe it actually worked! The pension came through this month, first time in two years!", "lang": "en"}, {"id": "H03", "text": "Mera naam list mein nahi hai. Pata nahi kyun. Har baar yahi hota hai.", "lang": "hinglish"}, {"id": "E19", "text": "It might maybe possibly be sorted out by the end of the month, I think. Not sure.", "lang": "en"}, {"id": "E21", "text": "I have no idea what happened to my application. I am not sure anyone even opened it.", "lang": "en"}, {"id": "E12", "text": "I don't really know if I should say this, but maybe the teacher is not qualified? I could be wrong.", "lang": "en"}, {"id": "H04", "text": "Haan thoda fayda hua, lekin itna bhi nahi jitna log bolte hain. Theek hai.", "lang": "hinglish"}, {"id": "H02", "text": "Sarkari scheme ka fayda mila, bahut accha laga. Time par paisa aa gaya.", "lang": "hinglish"}, {"id": "E14", "text": "The officer was polite and explained the process clearly. It took an hour, which is normal.", "lang": "en"}, {"id": "D01", "text": "हमें योजना के बारे में कुछ नहीं पता। कोई बताता ही नहीं है।", "lang": "devanagari"}, {"id": "E04", "text": "This is the third time they have sent me away from the office. Nobody tells you anything. It is a joke.", "lang": "en"}, {"id": "E16", "text": "Excellent service, very fast, no complaints at all.", "lang": "en"}, {"id": "H01", "text": "Shayad next month ka form bhar sakte hain, but pata nahi kab tak.", "lang": "hinglish"}, {"id": "E10", "text": "Things are improving slowly. I'm not saying it's perfect, but it's better than last year.", "lang": "en"}, {"id": "E23", "text": "It was fine, I think. Maybe. I don't remember much about it.", "lang": "en"}, {"id": "E02", "text": "It's fine. Nothing special happened, nothing went wrong. Same as always.", "lang": "en"}, {"id": "D02", "text": "बहुत बढ़िया! काम समय पर हो गया।", "lang": "devanagari"}];
+const HELP = {"valence": "How pleasant or unpleasant does the speaker feel? -1.00 = very unpleasant, 0.00 = neutral, +1.00 = very pleasant.", "arousal": "How much energy or activation does the speaker show? 0.00 = calm / flat / low energy, 1.00 = intense / activated / high energy.", "hedging": "How much does the speaker qualify or hedge what they say? 0.00 = direct and certain, 1.00 = heavily qualified, uncertain, noncommittal."};
+const KEY = "janpulse-signal-ratings-v1";
+const NAME_KEY = "janpulse-rater-name-v1";
+const AXES = ["valence", "arousal", "hedging"];
+const N = STIMULI.length;
+
+let state = {};
+AXES.forEach(a => document.getElementById("h-" + a).textContent = HELP[a]);
+
+function load() {
+  try { const r = localStorage.getItem(KEY); if (r) return JSON.parse(r); } catch (e) {}
+  return {};
+}
+function blank() { return { valence:null, arousal:null, hedging:null, unclear:false }; }
+state = load();
+STIMULI.forEach(s => { if (!state[s.id]) state[s.id] = blank(); });
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+    const el = document.getElementById("save");
+    el.textContent = "saved";
+    setTimeout(() => { el.textContent = ""; }, 1200);
+  } catch (e) {
+    document.getElementById("save").textContent = "NOT SAVED (storage blocked)";
+  }
+}
+
+function isRated(r) { return r.unclear || AXES.every(a => r[a] !== null); }
+
+function render() {
+  const host = document.getElementById("items");
+  host.innerHTML = "";
+  STIMULI.forEach((s, idx) => {
+    const r = state[s.id];
+    const div = document.createElement("div");
+    div.className = "item" + (isRated(r) ? " done" : "");
+    div.id = "item-" + s.id;
+    let rows = "";
+    AXES.forEach(a => {
+      // slider is 0..100; valence maps to -100..100
+      const span = (a === "valence") ? 200 : 100;
+      const off = (a === "valence") ? 100 : 0;
+      let v = r[a];
+      let slider = v === null ? span / 2 : (v * 100 + off);
+      rows += '<div class="row">' +
+        '<label for="sl-' + s.id + '-' + a + '">' + a + '</label>' +
+        '<input type="range" id="sl-' + s.id + '-' + a + '" min="0" max="' + span +
+          '" step="1" value="' + Math.round(slider) + '" data-id="' + s.id +
+          '" data-axis="' + a + '" data-off="' + off + '">' +
+        '<input type="number" id="nm-' + s.id + '-' + a + '" step="0.01" ' +
+          'min="' + (a === "valence" ? -1 : 0) + '" max="1" ' +
+          'value="' + (v === null ? "" : v.toFixed(2)) + '" placeholder="--" ' +
+          'data-id="' + s.id + '" data-axis="' + a + '">' +
+        '</div>';
+    });
+    div.innerHTML =
+      '<div class="meta"><span>' + (idx + 1) + ' / ' + N + ' &nbsp;&middot;&nbsp; ' + s.id +
+        ' &nbsp;&middot;&nbsp; ' + s.lang + '</span>' +
+        '<button class="clr unc' + (r.unclear ? " active" : "") + '" data-id="' + s.id + '">' +
+        (r.unclear ? "marked unclear" : "mark unclear / skip") + '</button></div>' +
+      '<div class="text"></div>' +
+      '<div class="rows">' + rows + '</div>' +
+      '<div style="margin-top:12px"><button class="clr reset" data-id="' + s.id +
+        '">clear this item</button></div>';
+    div.querySelector(".text").textContent = s.text;
+    host.appendChild(div);
+  });
+  count();
+}
+
+function count() {
+  const n = STIMULI.filter(s => isRated(state[s.id])).length;
+  document.getElementById("cnt").textContent = n;
+  document.getElementById("tot").textContent = N;
+}
+
+function setAxis(id, axis, value) {
+  state[id][axis] = value;
+  state[id].unclear = false;
+  const item = document.getElementById("item-" + id);
+  item.classList.toggle("done", isRated(state[id]));
+  item.classList.remove("unclear");
+  const unc = item.querySelector(".unc");
+  unc.classList.remove("active");
+  unc.textContent = "mark unclear / skip";
+  count();
+  save();
+}
+
+document.addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset && t.dataset.id && t.dataset.axis) {
+    const off = parseInt(t.dataset.off || "0", 10);
+    if (t.type === "range") {
+      const val = (parseInt(t.value, 10) - off) / 100;
+      const nm = document.getElementById("nm-" + t.dataset.id + "-" + t.dataset.axis);
+      nm.value = val.toFixed(2);
+      setAxis(t.dataset.id, t.dataset.axis, val);
+    } else if (t.type === "number") {
+      let val = parseFloat(t.value);
+      if (isNaN(val)) return;
+      const lo = (t.dataset.axis === "valence") ? -1 : 0;
+      val = Math.min(1, Math.max(lo, val));
+      const sl = document.getElementById("sl-" + t.dataset.id + "-" + t.dataset.axis);
+      sl.value = Math.round(val * 100 + off);
+      setAxis(t.dataset.id, t.dataset.axis, val);
+    }
+  }
+});
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  if (!t.dataset || !t.dataset.id) return;
+  if (t.classList.contains("unc")) {
+    const r = state[t.dataset.id];
+    r.unclear = !r.unclear;
+    if (r.unclear) AXES.forEach(a => r[a] = null);
+    render(); save();
+  } else if (t.classList.contains("reset")) {
+    state[t.dataset.id] = blank();
+    render(); save();
+  }
+});
+
+function csvCell(v) {
+  if (v === null || v === undefined || v === "") return "";
+  const s = String(v);
+  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function raterName() {
+  const el = document.getElementById("rater");
+  return el ? el.value.trim() : "";
+}
+
+function makeCSV() {
+  const who = raterName();
+  const head = ["id", "text", "human_valence", "human_arousal", "human_hedging", "rater"];
+  const lines = [head.join(",")];
+  STIMULI.forEach(s => {
+    const r = state[s.id];
+    const row = r.unclear ? [s.id, s.text, "", "", "", who]
+      : [s.id, s.text,
+         r.valence === null ? "" : r.valence.toFixed(2),
+         r.arousal === null ? "" : r.arousal.toFixed(2),
+         r.hedging === null ? "" : r.hedging.toFixed(2),
+         who];
+    lines.push(row.map(csvCell).join(","));
+  });
+  return lines.join("\r\n") + "\r\n";
+}
+
+document.getElementById("gen").addEventListener("click", async () => {
+  const nameEl = document.getElementById("rater");
+  if (!raterName()) {
+    nameEl.classList.add("warn");
+    nameEl.focus();
+    document.getElementById("exmsg").textContent =
+      "Please put your name in the box at the top first \u2014 ratings without a name cannot be used.";
+    return;
+  }
+  nameEl.classList.remove("warn");
+  const csv = makeCSV();
+  const out = document.getElementById("out");
+  out.value = csv;
+  document.getElementById("dl").disabled = false;
+  const rated = STIMULI.filter(s => isRated(state[s.id])).length;
+  document.getElementById("exmsg").textContent =
+    rated + " of " + N + " items rated. Blank rows are excluded from the analysis.";
+  const msg = document.getElementById("copied");
+  try {
+    await navigator.clipboard.writeText(csv);
+    msg.textContent = "copied to clipboard";
+  } catch (e) {
+    out.select();
+    document.execCommand("copy");
+    msg.textContent = "selected \u2014 press Ctrl+C if copy was blocked";
+  }
+  setTimeout(() => { msg.textContent = ""; }, 4000);
+});
+
+document.getElementById("dl").addEventListener("click", () => {
+  const blob = new Blob([makeCSV()], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "janpulse-human-ratings.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  if (!confirm("Clear every rating you have entered?")) return;
+  state = {};
+  STIMULI.forEach(s => state[s.id] = blank());
+  render(); save();
+});
+
+document.getElementById("top").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+document.getElementById("rater").addEventListener("input", e => {
+  e.target.classList.remove("warn");
+  try { localStorage.setItem(NAME_KEY, e.target.value); } catch (err) {}
+});
+
+try {
+  const saved = localStorage.getItem(NAME_KEY);
+  if (saved) document.getElementById("rater").value = saved;
+} catch (e) {}
+
+render();
+</script>
+</body>
+</html>
