@@ -95,19 +95,21 @@
      accuracy &mdash; including where it is weak and where it fails outright.</p>
 
   <div class="scorecard">
-    <div class="sc"><div class="lab">Valence vs human</div>
+    <div class="sc"><div class="lab">Valence vs human &middot; glm-5.2</div>
       <div class="val">+0.96</div>
       <div class="sub">Pearson r, 95% CI [+0.92, +0.98]<br>human ceiling +0.88</div></div>
-    <div class="sc"><div class="lab">Arousal vs human</div>
+    <div class="sc"><div class="lab">Arousal vs human &middot; glm-5.2</div>
       <div class="val">+0.49</div>
       <div class="sub">Pearson r, 95% CI [+0.16, +0.72]<br>human ceiling +0.71</div></div>
-    <div class="sc"><div class="lab">Hedging vs human</div>
+    <div class="sc"><div class="lab">Hedging vs human &middot; glm-5.2</div>
       <div class="val">+0.81</div>
       <div class="sub">Pearson r, 95% CI [+0.64, +0.91]<br>human ceiling +0.31 <b>(low)</b></div></div>
   </div>
   <div class="note">30 responses rated independently by 2 human raters
-     (Ashwin Srivastava and Prashant); the language model is
-     <code>glm-5.2</code>. Each model correlation is shown
+     (Ashwin Srivastava and Prashant); every response was scored by three methods &mdash; the language model
+     <code>glm-5.2</code>, Jev
+     <code>typesafe-ai/jev</code>, and the lexicon control
+     <code>nrc-vad-1</code>. Each model correlation is shown
      against the <b>inter-rater ceiling</b> &mdash; how well the two humans agree with each
      other on that axis. Where the ceiling is low, the axis is not measurable at this sample
      size whatever the model scores, and it says so below.</div>
@@ -124,8 +126,9 @@
     <tr><td class="m">arousal</td><td>0.00 to 1.00</td><td>calm and flat to intense and activated</td></tr>
     <tr><td class="m">hedging_score</td><td>0.00 to 1.00</td><td>direct and certain to heavily qualified</td></tr>
     <tr><td class="m">response_latency_ms</td><td>integer or null</td><td>passthrough, measured by the calling application</td></tr>
-    <tr><td class="m">method</td><td>string</td><td>which scoring method produced the result</td></tr>
+    <tr><td class="m">method</td><td>string</td><td>which scoring method produced the result: <code>llm_v1</code>, <code>lexicon_v1</code> or <code>jev_v1</code></td></tr>
     <tr><td class="m">model</td><td>string</td><td>the exact model id, so results stay attributable</td></tr>
+    <tr><td class="m">sentiment_category</td><td>string or null</td><td>the dominant tone as a label &mdash; scored by <code>jev_v1</code> only, null from the other methods</td></tr>
   </table>
 
   <h2>How it works</h2>
@@ -141,22 +144,40 @@
 
   <hr class="rule">
   <h2>What was measured</h2>
-  <p class="lede">Each response was scored by both methods and compared against the per-item
+  <p class="lede">Each response was scored by all three methods and compared against the per-item
      mean of 2 human ratings using Pearson correlation, with a 95% confidence interval
      (Fisher z-transform) and a two-sided p-value. The ceiling column is the humans' agreement
      with each other.</p>
   <table>
     <tr><th>Method</th><th>Axis</th><th class="num">r</th><th class="ci">95% CI</th>
         <th class="num">p</th><th class="num">n</th><th class="num">ceiling</th></tr>
-      <tr><td class='m'>Language model</td><td class='axis'>valence</td><td class='num'>+0.96</td><td class='ci'>[+0.92, +0.98]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.88</td></tr>
-      <tr><td class='m'>Language model</td><td class='axis'>arousal</td><td class='num'>+0.49</td><td class='ci'>[+0.16, +0.72]</td><td class='num'>0.0061</td><td class='num'>30</td><td class='num'>+0.71</td></tr>
-      <tr><td class='m'>Language model</td><td class='axis'>hedging</td><td class='num'>+0.81</td><td class='ci'>[+0.64, +0.91]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.31</td></tr>
-      <tr><td class='m'>NRC-VAD lexicon</td><td class='axis'>valence</td><td class='num'>+0.17</td><td class='ci'>[-0.20, +0.50]</td><td class='num'>0.3696</td><td class='num'>30</td><td class='num'>+0.88</td></tr>
-      <tr><td class='m'>NRC-VAD lexicon</td><td class='axis'>arousal</td><td class='num'>+0.18</td><td class='ci'>[-0.20, +0.50]</td><td class='num'>0.3527</td><td class='num'>30</td><td class='num'>+0.71</td></tr>
-      <tr><td class='m'>NRC-VAD lexicon</td><td class='axis'>hedging</td><td class='num'>&mdash;</td><td class='ci'>not available</td><td class='num'>not available</td><td class='num'>&mdash;</td><td class='num'>+0.31</td></tr>
+      <tr><td class='m'>Language model (glm-5.2)</td><td class='axis'>valence</td><td class='num'>+0.96</td><td class='ci'>[+0.92, +0.98]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.88</td></tr>
+      <tr><td class='m'>Language model (glm-5.2)</td><td class='axis'>arousal</td><td class='num'>+0.49</td><td class='ci'>[+0.16, +0.72]</td><td class='num'>0.0061</td><td class='num'>30</td><td class='num'>+0.71</td></tr>
+      <tr><td class='m'>Language model (glm-5.2)</td><td class='axis'>hedging</td><td class='num'>+0.81</td><td class='ci'>[+0.64, +0.91]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.31</td></tr>
+      <tr><td class='m'>Jev &mdash; typed decision model (typesafe-ai/jev)</td><td class='axis'>valence</td><td class='num'>+0.96</td><td class='ci'>[+0.92, +0.98]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.88</td></tr>
+      <tr><td class='m'>Jev &mdash; typed decision model (typesafe-ai/jev)</td><td class='axis'>arousal</td><td class='num'>+0.54</td><td class='ci'>[+0.22, +0.75]</td><td class='num'>0.0022</td><td class='num'>30</td><td class='num'>+0.71</td></tr>
+      <tr><td class='m'>Jev &mdash; typed decision model (typesafe-ai/jev)</td><td class='axis'>hedging</td><td class='num'>+0.70</td><td class='ci'>[+0.45, +0.84]</td><td class='num'>&lt;0.0001</td><td class='num'>30</td><td class='num'>+0.31</td></tr>
+      <tr><td class='m'>NRC-VAD lexicon (nrc-vad-1)</td><td class='axis'>valence</td><td class='num'>+0.17</td><td class='ci'>[-0.20, +0.50]</td><td class='num'>0.3696</td><td class='num'>30</td><td class='num'>+0.88</td></tr>
+      <tr><td class='m'>NRC-VAD lexicon (nrc-vad-1)</td><td class='axis'>arousal</td><td class='num'>+0.18</td><td class='ci'>[-0.20, +0.50]</td><td class='num'>0.3527</td><td class='num'>30</td><td class='num'>+0.71</td></tr>
+      <tr><td class='m'>NRC-VAD lexicon (nrc-vad-1)</td><td class='axis'>hedging</td><td class='num'><span class='blank'>not measured</span></td><td class='ci'><span class='blank'>not available</span></td><td class='num'><span class='blank'>not available</span></td><td class='num'>&mdash;</td><td class='num'>+0.31</td></tr>
   </table>
+      <div class='note'><b>Not measured, and why.</b> NRC-VAD lexicon (nrc-vad-1), hedging: hedging is unavailable from lexicon_v1 - NRC-VAD has no hedging dimension. These cells carry no number on purpose: a zero or a bare dash would read like a result.</div>
   <div class="note">Ratings a rater left blank are excluded from that axis only and never imputed (1 left blank on valence, 1 left blank on arousal, 3 left blank on hedging). At n&thinsp;=&thinsp;30 the intervals are wide: this is
      an indicative measurement, not proof.</div>
+
+  <h3>Three scoring methods, run in parallel</h3>
+  <p class="lede" style="font-size:15px">Every response is scored by each of these, and the
+     harness measures all three against the same human ratings. A method that failed on an item is
+     reported as a failure for that item, never imputed, so a partial pass is visible above rather
+     than smoothed away.</p>
+  <table>
+    <tr><th>Method</th><th>What it is</th><th class="num">valence r</th>
+        <th class="num">arousal r</th><th class="num">hedging r</th></tr>
+      <tr><td class='m'>Language model (glm-5.2)</td><td>A prompt plus a forced tool call: the model has to return the three scores through the written schema, so nothing parses free text.</td><td class='num'>+0.96</td><td class='num'>+0.49</td><td class='num'>+0.81</td></tr>
+      <tr><td class='m'>Jev &mdash; typed decision model (typesafe-ai/jev)</td><td>Jev by TypeSafe AI, a typed-decision model reached through the Vercel AI Gateway. It is handed the response plus declared questions and returns typed values with a confidence &mdash; about 1.2&thinsp;s and $0.042 per 1M input tokens (output billed at zero) per response. It does not hold a conversation; it only scores.</td><td class='num'>+0.96</td><td class='num'>+0.54</td><td class='num'>+0.70</td></tr>
+      <tr><td class='m'>NRC-VAD lexicon (nrc-vad-1)</td><td>An offline cross-check against the NRC-VAD affect lexicon. No model, no network, deterministic &mdash; and English-annotated, which is why both its coverage and its correlations fall over on code-mixed responses.</td><td class='num'>+0.17</td><td class='num'>+0.18</td><td class='num'><span class='blank'>not measured</span></td></tr>
+  </table>
+      <div class='note'><b>Why three.</b> Not to crown a winner up front: the point is to let this harness decide which method is accurate enough to trust at scale, because a cheaper or faster method only matters once its accuracy clears the bar. On this sample the two model-based methods are not separable: valence reads +0.96 for the language model against +0.96 for Jev, and arousal +0.49 against +0.54, with the 95% intervals overlapping on both. The language model is ahead on hedging (+0.81 against +0.70), which is the axis whose human ceiling is lowest, so neither number settles much. The defensible claim is parity on the two axes where the raters agree, not a win: at this sample size the intervals cannot separate 0.96 from 0.96.<br><br><b>Read Jev with its caveats attached.</b> It is a typed-decision model, not a reasoning model, so a schema-valid score is not automatically a correct one &mdash; the correlations above are the only evidence that it can be trusted, and nothing here justifies using it beyond triage without them. Its own vendor benchmark reports roughly 68% accuracy on their internal workflow evals: a starting expectation, not a guarantee for this task. It scores by anchor probability, so its scale is stepped at about 0.05 rather than continuous, which caps how high its r can climb at this sample size. And the gateway key observed a five-requests-per-minute limit, which is why the harness paces its calls at 12&thinsp;s and retries transient failures instead of assuming one call per response.</div>
 
   <h3>Do the humans agree on each axis?</h3>
   <table>
@@ -236,8 +257,9 @@
   <hr class="rule">
   <h2 id="limits">What this does not prove yet</h2>
   <ul>
-    <li><b>Two raters is the minimum for a ceiling, not the target.</b> Valence now reads
-      +0.96 against a ceiling of
+    <li><b>Two raters is the minimum for a ceiling, not the target.</b> The language model's valence
+      now reads +0.96 and Jev's
+      +0.96, against a ceiling of
       +0.88, which is a defensible number for this module. Every other
       axis needs more raters before its ceiling stops being one noisy pair.</li>
     <li><b>Hedging has no usable human ground truth here.</b> The raters agree at
@@ -249,6 +271,14 @@
       +0.49 against a ceiling of
       +0.71: the model sits clearly below what the humans can agree
       on, so this is model error rather than ambiguity in the measure.</li>
+    <li><b>Jev is a triage instrument until its numbers say otherwise.</b> It is a typed-decision
+      model, not a reasoning model, so a schema-valid score is not automatically a correct one. On
+      this sample its valence and arousal sit level with the language model's
+      (+0.96 and +0.54 against +0.96 and +0.49) &mdash; enough to
+      justify a cheap first pass at scale, not enough to replace the language model where the
+      decision matters. Its own vendor benchmark reports roughly 68% on their internal evals, and its
+      anchor-based scale is stepped rather than continuous; both facts hold its numbers down, and
+      neither is a reason to trust it further than the correlations above.</li>
     <li><b>A model r above the ceiling is not proof.</b> The model is correlated against the mean
       of the ratings, which is more reliable than either single rater, while the ceiling is
       computed between single raters. The two numbers are therefore not strictly comparable, and
@@ -267,8 +297,8 @@
 
   <h2>Why it matters</h2>
   <p class="lede">Any team can call a model and print a sentiment score. The defensible asset is
-     the discipline around it: a fixed schema, a citable psychological model, a second method as
-     a control, a blind rating pack scored by more than one person, a measured result with its
+     the discipline around it: a fixed schema, a citable psychological model, two further methods as
+     controls, a blind rating pack scored by more than one person, a measured result with its
      ceiling attached, and a written account of where it fails. That is what makes a capability
      claim auditable &mdash; by a client, a partner, or an investor's technical advisor. The same
      harness is what will train a domain-specific model later, because it already produces
@@ -277,8 +307,9 @@
   <footer>
     Generated from <code>validation/results.json</code> and the rating sheets in
     <code>validation/</code> &mdash; every figure on this page is computed from the measurement
-    run, not transcribed. Model
-    <code>glm-5.2</code>; lexicon control
+    run, not transcribed. Models
+    <code>glm-5.2</code>,
+    <code>typesafe-ai/jev</code>; lexicon control
     <code>nrc-vad-1</code>. Raters:
     Ashwin Srivastava, Prashant. Values independently re-implemented and cross-checked
     against a second implementation of Pearson r, the Fisher interval and the t-based p-value.
