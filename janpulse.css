@@ -175,7 +175,7 @@
 .pill {
   display: inline-block;
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-teal);
@@ -267,3 +267,49 @@
 
 /* AA: the light-table total rule is invisible on the teal band */
 .section-dark .budget-table tr:last-child td:last-child { color: var(--color-gold-ink); }
+
+
+/* ===== Motion layer (2026-10) ===== */
+#how .card-grid-4 { position: relative; }
+.loop-spine {
+  position: absolute; left: 0; right: 0; top: -1px; height: 2px; z-index: 2;
+  background: linear-gradient(90deg, var(--color-teal), var(--color-gold));
+  opacity: .55; transform: scaleX(0); transform-origin: left center;
+  pointer-events: none;
+}
+.card-grid-4 .card { position: relative; overflow: hidden; }
+.spotlight::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+  background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(15, 76, 92, .10), transparent 72%);
+}
+.spotlight:hover::after { opacity: 1; }
+.section-dark .spotlight::after {
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(232, 200, 138, .16), transparent 72%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .loop-spine { display: none; }
+  .spotlight::after { display: none; }
+}
+/* hero intro starts hidden only when motion is available (set by app.js class) */
+.motion-ready .hero .badge,
+.motion-ready .hero h1,
+.motion-ready .hero p,
+.motion-ready .hero-actions .btn,
+.motion-ready .researcher-card { will-change: transform, opacity; }
+
+/* ===== legibility: .pill was 10.88px, now 11.5px ===== */
+
+/* ===== hero density: the two team cards were pushing the CTAs below the fold ===== */
+.researcher-card { padding: 1.25rem 1.25rem 1.1rem; }
+.researcher-card .avatar { width: 64px; height: 64px; font-size: 1.05rem; margin-bottom: 0.7rem; }
+.researcher-card h3 { font-size: 1.05rem; margin-bottom: 0.15rem; }
+.researcher-card .institution { font-size: 0.85rem; margin-bottom: 0.5rem; }
+.researcher-card .title { font-size: 0.85rem; line-height: 1.55; }
+.hero-grid { gap: 2.25rem; align-items: start; }
+
+/* ===== a11y: hidden section heading keeps the outline h1 → h2 → h3 ===== */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
