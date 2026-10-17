@@ -57,7 +57,7 @@
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
 }
 .card-dark .plain-list li { color: rgba(255, 255, 255, 0.88); border-color: rgba(255, 255, 255, 0.18); }
 
@@ -65,7 +65,7 @@
   font-family: var(--font-serif);
   font-size: 0.85rem;
   letter-spacing: 0.1em;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
   margin-bottom: 0.4rem;
 }
 
@@ -79,7 +79,7 @@
   margin: 2.5rem auto 0;
   text-align: center;
 }
-.section-dark .pull-quote { color: var(--color-gold); }
+.section-dark .pull-quote { color: var(--color-gold-ink); }
 
 /* Formula strip on the technology section */
 .formula {
@@ -183,7 +183,7 @@
   padding: 0.2rem 0.6rem;
   margin-bottom: 0.75rem;
 }
-.pill-warn { color: var(--color-gold-dark); border-color: var(--color-gold); }
+.pill-warn { color: var(--color-gold-dark); border-color: var(--color-gold-ink); }
 .pain {
   font-family: var(--font-serif);
   font-style: italic;
@@ -246,7 +246,7 @@
   border-color: rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.9);
 }
-.section-dark .budget-table td:last-child { color: var(--color-gold); }
+.section-dark .budget-table td:last-child { color: var(--color-gold-ink); }
 
 /* Responsive: collapse the wide grids, as the base stylesheet does for its own */
 @media (max-width: 1000px) {
@@ -259,3 +259,11 @@
   .evidence-table th, .evidence-table td { padding: 0.6rem 0.5rem; }
   .market-num { font-size: 2.1rem; }
 }
+
+/* AA: light text on the footer and budget band */
+.provenance { color: rgba(255,255,255,0.74); }
+.footer-bottom { color: rgba(255,255,255,0.62); }
+.section-dark .budget-table td, .section-dark .budget-table th { color: rgba(255,255,255,0.9); }
+
+/* AA: the light-table total rule is invisible on the teal band */
+.section-dark .budget-table tr:last-child td:last-child { color: var(--color-gold-ink); }
