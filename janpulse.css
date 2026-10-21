@@ -381,3 +381,96 @@
   .book-band { grid-template-columns: 1fr; gap: 1.75rem; justify-items: start; }
   .book-title { font-size: 1.9rem; }
 }
+
+/* ===== Pulse Library (library.html) =====
+   Coverage report, consensus/divergence columns, opinion groups, citation trail.
+   Shares the editorial palette; no new fonts, no new radius. */
+
+.pl-hero-number { display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap; margin-top: 2rem; }
+.pl-hero-number > span:first-child {
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-teal);
+}
+.pl-hero-caption { max-width: 34ch; font-size: 0.95rem; color: var(--color-ink-muted); }
+
+.pl-mono { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-ink-muted); white-space: nowrap; }
+.pl-num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.pl-status {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor;
+}
+.pl-status-covered { color: var(--color-teal); }
+.pl-status-thin { color: var(--color-gold-ink); }
+.pl-status-gap { color: #9c3b1b; }
+
+/* consensus / divergence */
+.pl-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.pl-col-title {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+.pl-list { list-style: none; }
+.pl-list li { padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.pl-list li:last-child { border-bottom: none; }
+.pl-list-head { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.3rem; }
+.pl-pct { font-family: var(--font-serif); font-size: 1.5rem; color: #fff; }
+.pl-pct-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.pl-item-id {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,.45);
+}
+.pl-list li p { font-size: 0.92rem; color: rgba(255,255,255,.86); line-height: 1.5; }
+.pl-list li p.pl-meta { font-size: 0.75rem; color: rgba(255,255,255,.5); margin-top: 0.3rem; font-variant-numeric: tabular-nums; }
+
+/* opinion groups */
+.pl-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.pl-group h4 { color: var(--color-teal); }
+.pl-bar { height: 8px; background: var(--color-slate-soft); margin-top: 0.75rem; overflow: hidden; }
+.pl-bar > span { display: block; height: 100%; background: var(--color-teal); }
+.pl-bar-light { height: 6px; margin-top: 0; }
+
+.pl-polar { margin-top: 1rem; max-width: 82ch; }
+.pl-polar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px 3.25rem;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-slate-soft);
+}
+.pl-polar-label { font-size: 0.87rem; color: var(--color-ink-secondary); }
+.pl-polar-row .pl-num { font-size: 0.8rem; color: var(--color-ink-muted); text-align: right; }
+
+/* citation trail */
+.pl-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.75rem; }
+.pl-quote { border-left: 2px solid var(--color-gold); padding: 0.35rem 0 0.35rem 1.1rem; }
+.pl-quote-text { font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-ink); line-height: 1.5; }
+.pl-quote-meta { font-size: 0.72rem; letter-spacing: 0.04em; color: var(--color-ink-muted); margin-top: 0.5rem; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 860px) {
+  .pl-two-col { grid-template-columns: 1fr; gap: 1.75rem; }
+  .pl-polar-row { grid-template-columns: 1fr; gap: 0.35rem; }
+  .pl-hero-number > span:first-child { font-size: 3.4rem; }
+}
+
+/* The coverage table has five columns; the evidence-age column is the one we drop on
+   narrow screens so the statement column keeps a readable measure. */
+@media (max-width: 700px) {
+  .evidence-table th:nth-child(4),
+  .evidence-table td.pl-cov-age { display: none; }
+  .evidence-table th, .evidence-table td { padding: 0.7rem 0.6rem; }
+}

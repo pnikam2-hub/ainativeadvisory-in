@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Library — JanPulse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="janpulse.css">
+  <meta name="description" content="Pulse Library: the base intelligence layer behind JanPulse. What a corpus already answers before fieldwork is commissioned — with citations to every claim and a published reliability figure.">
+  <meta property="og:title" content="Pulse Library — JanPulse">
+  <meta property="og:description" content="Coverage before fieldwork: what the corpus already answers, how old the evidence is, and what genuinely needs fresh interviews.">
+  <meta property="og:type" content="article">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class='nav-logo' href='/'>JanPulse.</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href='/'>Home</a>
+      <a href="/#how">How it works</a>
+      <a href='/foundations.html'>Foundations</a>
+      <a class='active' href='/library.html'>Pulse Library</a>
+      <a href="/#technology">Technology</a>
+      <a href="/#evidence">Evidence</a>
+      <a href="/#team">Team</a>
+      <a href="/#book">The book</a>
+      <a href="/#ask" class="btn btn-outline btn-sm">The Ask</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="section section-dark">
+  <div class="container">
+    <span class="eyebrow" style="color:#e8c88a;">Pulse Library &middot; base intelligence</span>
+    <h1 style="color:#fff;max-width:24ch;">Before you pay for 800 interviews, find out how many you already have.</h1>
+    <p class="dark-body" style="font-size:1.1rem;max-width:78ch;margin-top:1.25rem;">
+      Every JanPulse study feeds a corpus that answers the next study&rsquo;s questions first.
+      Pulse Library is that corpus: a coverage report before fieldwork is commissioned, a
+      consensus and divergence view that is provably disjoint, and a citation trail from every
+      claim back to the response that supports it.
+    </p>
+    <p class="dark-body" style="max-width:78ch;">
+      This page is a working demonstration of the interface and the statistics on a synthetic
+      dataset. The live library is populated by real fieldwork; the structure below does not change.
+    </p>
+    <p class="pill pill-warn" style="margin-top:1.5rem;display:inline-block;color:#e8c88a;border-color:rgba(232,200,138,.55);">
+      Illustrative dataset &middot; 360 synthetic respondents &middot; not fieldwork
+    </p>
+  </div>
+</header>
+
+<!-- Coverage -->
+<section class="section">
+  <div class="container">
+    <span class="pill">Step 01 &middot; Coverage report</span>
+    <h2 class="section-title">What the corpus already answers</h2>
+    <p class="role">A proposed 12-item, 800-interview study, priced against the evidence that already exists</p>
+
+    <div class="pl-hero-number">
+      <span id="covPct">52%</span>
+      <span class="pl-hero-caption">of the proposed instrument is already covered by prior fieldwork,
+        at least in part</span>
+    </div>
+
+    <div class="card-grid-3" style="margin-top:2rem;">
+      <div class="card card-quiet">
+        <h4 style="color:var(--color-teal);">Covered</h4>
+        <p id="covCovered" style="font-family:var(--font-serif);font-size:2rem;color:var(--color-teal);">4</p>
+        <p>Items with recent, adequately sized evidence. These do not need to be re-fielded.</p>
+      </div>
+      <div class="card card-quiet">
+        <h4 style="color:var(--color-gold-ink);">Thin</h4>
+        <p id="covThin" style="font-family:var(--font-serif);font-size:2rem;color:var(--color-gold-ink);">5</p>
+        <p>Evidence exists but is old, small, or both. Re-field, or quote with the limitation stated.</p>
+      </div>
+      <div class="card card-quiet">
+        <h4 style="color:var(--color-ink-muted);">Gap</h4>
+        <p id="covGap" style="font-family:var(--font-serif);font-size:2rem;color:var(--color-ink-muted);">3</p>
+        <p>Never asked. These are the only items that justify a full fieldwork budget.</p>
+      </div>
+    </div>
+
+    <table class="evidence-table" style="margin-top:2.5rem;">
+      <thead>
+        <tr><th>Item</th><th>Statement</th><th>Prior n</th><th>Evidence age</th><th>Status</th></tr>
+      </thead>
+      <tbody id="covRows"><!-- filled from the demo dataset --></tbody>
+    </table>
+    <p class="provenance">Status thresholds: covered = n &ge; 250 and &lt; 6 months old; thin = n 90&ndash;249
+      or older than 6 months; gap = no prior evidence. The weighting behind the headline percentage
+      is published alongside the dataset, not hidden in a slide.</p>
+  </div>
+</section>
+
+<!-- Consensus -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="pill" style="background:rgba(255,255,255,.12);color:#e8c88a;">Step 02 &middot; Consensus and divergence</span>
+    <h2 class="section-title" style="color:#fff;">What this population agrees on, and what divides it</h2>
+    <p class="dark-body" style="max-width:78ch;">
+      Two lists, computed with Laplace-smoothed proportions and a one-proportion z-test at 90%
+      confidence. Because the two probabilities sum to at most one, a statement cannot appear in
+      both lists &mdash; that is a proof, not a filter.
+    </p>
+
+    <div class="pl-two-col" style="margin-top:2rem;">
+      <div>
+        <h3 class="pl-col-title" style="color:#e8c88a;">Agreement</h3>
+        <ul class="pl-list" id="consAgree"></ul>
+      </div>
+      <div>
+        <h3 class="pl-col-title" style="color:#f0b7a4;">Divergence</h3>
+        <ul class="pl-list" id="consDisagree"></ul>
+      </div>
+    </div>
+    <p class="dark-caption" style="margin-top:1.5rem;">
+      &ldquo;Divergence&rdquo; here means majority disagreement with the statement, not division between
+      groups. Group-by-group splits are in step 03.
+    </p>
+  </div>
+</section>
+
+<!-- Opinion groups -->
+<section class="section">
+  <div class="container">
+    <span class="pill">Step 03 &middot; Opinion structure</span>
+    <h2 class="section-title">Two opinion groups, not one average</h2>
+    <p class="role">Two-level clustering over a sparsity-weighted PCA projection, with the group count chosen by silhouette</p>
+
+    <div class="pl-groups" id="groupCards"></div>
+
+    <h3 class="sub-head">Where the groups part company</h3>
+    <div id="polarisingList" class="pl-polar"><!-- filled --></div>
+    <p class="provenance">Polarising score = |correlation| between an item&rsquo;s answers and a respondent&rsquo;s
+      position on the main axis of opinion. It is a property of the statement, not of a group; near 0 means the
+      item does not separate anyone.</p>
+  </div>
+</section>
+
+<!-- Citation -->
+<section class="section section-cream">
+  <div class="container">
+    <span class="pill">Step 04 &middot; The citation trail</span>
+    <h2 class="section-title">Every claim, back to the response</h2>
+    <p class="role">The part most research tools leave out</p>
+
+    <div class="pull-quote" style="text-align:left;margin-left:0;" id="traceClaim"></div>
+    <p class="provenance" id="traceStat"></p>
+
+    <div class="pl-quotes" id="traceQuotes"></div>
+
+    <div style="margin-top:2rem;max-width:78ch;">
+      <h3 class="sub-head">What a real answer carries</h3>
+      <ul class="plain-list">
+        <li><b>Evidence references</b> &mdash; study, item, response and turn identifiers, so a reviewer can open the transcript.</li>
+        <li><b>Consent scope</b> &mdash; whether the record may be reused in pooled analysis, only in the client deliverable, or not at all.</li>
+        <li><b>Reliability</b> &mdash; the inter-rater ceiling and the scorer&rsquo;s measured agreement on held-out data, with sample size. If a scorer has no measured figure, any claim resting on it is marked thin, not supported.</li>
+        <li><b>Coverage</b> &mdash; how many records matched, how many were excluded by consent or access, and what the corpus could not answer.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Honesty -->
+<section class="section">
+  <div class="container">
+    <span class="pill">What is synthetic here</span>
+    <h2 class="section-title">The numbers on this page are illustrative. The method is not.</h2>
+    <div class="cols-2" style="margin-top:1.5rem;">
+      <div>
+        <h3 class="sub-head">Synthetic</h3>
+        <ul class="plain-list">
+          <li>The 360 respondents and every percentage and count derived from them.</li>
+          <li>The three quoted responses, including the Marathi and Hindi text.</li>
+          <li>The prior-wave sizes and evidence ages behind the coverage table.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub-head">Real</h3>
+        <ul class="plain-list">
+          <li>The statistics: Laplace-smoothed proportions, one-proportion z-tests at z<sub>90</sub> = 1.2816,
+              silhouette-based group selection, two-level k-means on a sparsity-weighted projection.</li>
+          <li>The disjointness property of the consensus lists.</li>
+          <li>The citation structure and the reliability fields, which exist in the data model now and
+              are populated by measured figures when real data lands.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-head" style="margin-top:2rem;">Limits we state up front</h3>
+    <ul class="plain-list" style="max-width:80ch;">
+      <li>Below roughly 30 respondents per cohort the clustering layer is noise; such cells are suppressed, not published.</li>
+      <li>The main axis has an arbitrary sign and near-ties in variance. Direction is never presented as meaning &mdash; only relative position.</li>
+      <li>Consensus describes agreement with statements. It says nothing about whether a policy is good, and we do not let a report imply otherwise.</li>
+      <li>Everything here is conditional on the instrument. A badly worded item produces a clean, significant, meaningless consensus &mdash; which is why the instrument review gate exists.</li>
+    </ul>
+
+    <div style="margin-top:2.5rem;">
+      <a href="/#ask" class="btn">Commission a study with the library behind it</a>
+      <a href="/technology.html" class="btn btn-outline" style="margin-left:.75rem;">How we measure</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">JanPulse.</span>
+        <p>The AI-native citizen intelligence platform. Hyperlocal, contextual, continuous &mdash; built from
+          live conversations with real people, fused with validated behavioural frameworks.</p>
+        <p class="provenance" style="margin-top:0.75rem;">A venture of AI Native Organisations.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="/#how">How it works</a>
+        <a href="/foundations.html">Foundations &mdash; case studies</a>
+        <a href="/library.html">Pulse Library</a>
+        <a href="/technology.html">Technology &amp; measurement</a>
+        <a href="/#evidence">Evidence</a>
+        <a href="/rate.html">Ratings sheet (open)</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/#team">Team</a>
+        <a href="/#book">The AI Native State</a>
+        <a href="/#ask">The raise</a>
+        <a href="https://ainativeorganisations.com" target="_blank" rel="noopener">AI Native Organisations</a>
+        <a href="mailto:hello@ainativeorganisations.com">Email us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 JanPulse &mdash; a venture of AI Native Organisations. Built on the Livelihood
+      Intelligence experience of Sapio Analytics. The dataset on this page is synthetic; forward-looking
+      figures are the founders' estimates.
+    </div>
+  </div>
+</footer>
+
+<script src="assets/pulse-library-demo.js"></script>
+<script>
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+(function () {
+  var D = window.JANPULSE_PULSE_DEMO;
+  if (!D) return;
+
+  // ---- coverage -----------------------------------------------------------
+  var counts = { covered: 0, thin: 0, gap: 0 };
+  D.coverage.items.forEach(function (it) { counts[it.status] = (counts[it.status] || 0) + 1; });
+  document.getElementById('covPct').textContent = D.coverage.pct_already_covered + '%';
+  document.getElementById('covCovered').textContent = counts.covered;
+  document.getElementById('covThin').textContent = counts.thin;
+  document.getElementById('covGap').textContent = counts.gap;
+
+  var tbody = document.getElementById('covRows');
+  D.coverage.items.forEach(function (it) {
+    var tr = document.createElement('tr');
+    function cell(text, cls) {
+      var td = document.createElement('td');
+      td.textContent = text;
+      if (cls) td.className = cls;
+      return td;
+    }
+    tr.appendChild(cell(it.id, 'pl-mono'));
+    tr.appendChild(cell(it.text));
+    tr.appendChild(cell(it.n ? String(it.n) : '—', 'pl-num'));
+    tr.appendChild(cell(it.age_days === null ? 'no prior wave' : it.age_days + ' days ago', 'pl-num pl-cov-age'));
+    var td = document.createElement('td');
+    var span = document.createElement('span');
+    span.className = 'pl-status pl-status-' + it.status;
+    span.textContent = it.status;
+    td.appendChild(span);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  });
+
+  // ---- consensus ----------------------------------------------------------
+  function fillList(id, items, isAgree) {
+    var ul = document.getElementById(id);
+    items.forEach(function (it) {
+      var li = document.createElement('li');
+      var head = document.createElement('div');
+      head.className = 'pl-list-head';
+      var pct = document.createElement('span');
+      pct.className = 'pl-pct';
+      pct.textContent = (isAgree ? it.agree_pct : it.disagree_pct) + '%';
+      var label = document.createElement('span');
+      label.className = 'pl-pct-label';
+      label.textContent = isAgree ? 'agree' : 'disagree';
+      var idEl = document.createElement('span');
+      idEl.className = 'pl-item-id';
+      idEl.textContent = it.id;
+      head.appendChild(pct); head.appendChild(label); head.appendChild(idEl);
+      var body = document.createElement('p');
+      body.textContent = it.text;
+      var meta = document.createElement('p');
+      meta.className = 'pl-meta';
+      meta.textContent = 'z = ' + it.z + ' · n = ' + it.n;
+      li.appendChild(head); li.appendChild(body); li.appendChild(meta);
+      ul.appendChild(li);
+    });
+  }
+  fillList('consAgree', D.consensus.agree, true);
+  fillList('consDisagree', D.consensus.disagree, false);
+
+  // ---- groups -------------------------------------------------------------
+  var gc = document.getElementById('groupCards');
+  var total = D.groups.sizes.reduce(function (a, b) { return a + b; }, 0);
+  D.groups.sizes.forEach(function (size, i) {
+    var d = document.createElement('div');
+    d.className = 'card card-quiet pl-group';
+    var h = document.createElement('h4');
+    h.textContent = 'Group ' + (i + 1);
+    var n = document.createElement('p');
+    n.className = 'pl-num';
+    n.textContent = size + ' of ' + total + ' respondents';
+    var bar = document.createElement('div');
+    bar.className = 'pl-bar';
+    var fill = document.createElement('span');
+    fill.style.width = Math.round(100 * size / total) + '%';
+    bar.appendChild(fill);
+    d.appendChild(h); d.appendChild(n); d.appendChild(bar);
+    gc.appendChild(d);
+  });
+  var meta = document.createElement('p');
+  meta.className = 'provenance';
+  meta.textContent = 'Silhouette by candidate group count — ' +
+    Object.keys(D.groups.silhouette).map(function (k) {
+      return 'k=' + k + ': ' + D.groups.silhouette[k];
+    }).join(', ') + ' — selected k=' + D.groups.k + ' over ' + D.groups.base_clusters + ' base clusters.';
+  gc.parentNode.insertBefore(meta, gc.nextSibling);
+
+  // ---- polarising items ---------------------------------------------------
+  var polar = document.getElementById('polarisingList');
+  D.items.slice().sort(function (a, b) { return b.polarising - a.polarising; })
+    .slice(0, 5).forEach(function (it) {
+      var row = document.createElement('div');
+      row.className = 'pl-polar-row';
+      var label = document.createElement('div');
+      label.className = 'pl-polar-label';
+      label.textContent = it.id + ' · ' + it.text;
+      var bar = document.createElement('div');
+      bar.className = 'pl-bar pl-bar-light';
+      var fill = document.createElement('span');
+      fill.style.width = Math.round(it.polarising * 100) + '%';
+      bar.appendChild(fill);
+      var val = document.createElement('span');
+      val.className = 'pl-num';
+      val.textContent = it.polarising.toFixed(2);
+      row.appendChild(label); row.appendChild(bar); row.appendChild(val);
+      polar.appendChild(row);
+    });
+
+  // ---- citation trace -----------------------------------------------------
+  document.getElementById('traceClaim').textContent = '“' + D.citation.claim + '”';
+  document.getElementById('traceStat').textContent =
+    'Item ' + D.citation.item + ' · ' + D.citation.stat + ' · evidence: synthetic wave of ' +
+    D.respondents + ' respondents';
+  var qc = document.getElementById('traceQuotes');
+  D.citation.quotes.forEach(function (q) {
+    var card = document.createElement('div');
+    card.className = 'pl-quote';
+    var text = document.createElement('p');
+    text.className = 'pl-quote-text';
+    text.textContent = '“' + q.text + '”';
+    var meta = document.createElement('p');
+    meta.className = 'pl-quote-meta';
+    meta.textContent = q.response_id + ' · ' + q.cohort + ' · ' + q.language + ' · consent: pooled reuse';
+    card.appendChild(text); card.appendChild(meta);
+    qc.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>
