@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consensus &amp; Citation Layer — JanPulse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="janpulse.css">
+  <meta name="description" content="JanPulse's L4/L5 layer: opinion maps with a published stability test, and briefs where every clause is cited and machine-checked. Run on a real Pol.is open conversation.">
+  <meta property="og:title" content="Consensus &amp; Citation Layer — JanPulse">
+  <meta property="og:description" content="Maps, not averages. Every clause cited, every citation checked, numbers computed by code.">
+  <meta property="og:type" content="article">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class='nav-logo' href='/'>JanPulse.</a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href='/'>Home</a>
+      <a href="/#how">How it works</a>
+      <a href='/foundations.html'>Foundations</a>
+      <a href='/library.html'>Pulse Library</a>
+      <a class='active' href='/consensus.html'>Consensus &amp; Citation</a>
+      <a href="/#technology">Technology</a>
+      <a href="/#evidence">Evidence</a>
+      <a href="/#team">Team</a>
+      <a href="/#ask" class="btn btn-outline btn-sm">The Ask</a>
+    </div>
+  </div>
+</nav>
+
+<header class="section section-dark">
+  <div class="container">
+    <span class="eyebrow" style="color:#e8c88a;">L4 consensus &middot; L5 citations</span>
+    <h1 style="color:#fff;max-width:26ch;">Maps, not averages. Every clause cited, every citation checked.</h1>
+    <p class="dark-body" style="font-size:1.1rem;max-width:78ch;margin-top:1.25rem;">
+      This is the layer that turns responses and votes into two artefacts: an opinion map that
+      states where a population agrees and where it splits, and a brief in which every factual
+      clause is tied to evidence and machine-checked before publication.
+    </p>
+    <p class="dark-body" style="max-width:78ch;">
+      Everything numeric on this page was computed by the reference implementation of the
+      JanPulse Consensus and Citation Layer Specification (Draft v0.1), running on a real
+      Pol.is conversation released under CC BY&nbsp;4.0. Nothing here is typed by hand.
+    </p>
+    <p class="pill" style="margin-top:1.5rem;display:inline-block;color:#e8c88a;border-color:rgba(232,200,138,.55);" id="corpusBadge"></p>
+  </div>
+</header>
+
+<!-- Requirements -->
+<section class="section">
+  <div class="container">
+    <span class="pill">The specification, requirement by requirement</span>
+    <h2 class="section-title">Ten requirements, and what this build actually does</h2>
+    <p class="role">Status is stated against this page's implementation, not against the roadmap</p>
+    <table class="evidence-table" id="reqTable">
+      <thead><tr><th>#</th><th>Requirement</th><th>Status</th><th>Note</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Consensus -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="pill" style="background:rgba(255,255,255,.12);color:#e8c88a;">Step 01 &middot; The map</span>
+    <h2 class="section-title" style="color:#fff;">Opinion groups, and the stability test that decides whether to publish them</h2>
+    <p class="dark-body" style="max-width:80ch;">
+      Clustering is cheap; a stable clustering is not. The layer bootstraps respondents, reclusters
+      with the same parameters and measures agreement with the full run. Below the threshold the
+      honest output is &ldquo;no stable group structure&rdquo;, which is itself a finding.
+    </p>
+    <p class="dark-body" style="max-width:80ch;">
+      On this conversation our own clustering does not clear that gate, and the page says so rather
+      than showing a pretty map that would not survive a re-run. The statement lists are therefore
+      computed on the grouping released with the export, with the disagreement between the two
+      reported alongside.
+    </p>
+
+    <div class="pl-groups" id="groupCards" style="margin-top:2rem;"></div>
+    <div class="pl-stat-row" id="runStats"></div>
+
+    <h3 class="sub-head" style="color:#e8c88a;">Statements that bridge every group</h3>
+    <div id="bridgingList" class="pl-items"></div>
+
+    <h3 class="sub-head" style="color:#f0b7a4;">Statements that divide the groups</h3>
+    <div id="divisiveList" class="pl-items"></div>
+  </div>
+</section>
+
+<!-- Group-defining -->
+<section class="section">
+  <div class="container">
+    <span class="pill">Step 02 &middot; Group-defining statements</span>
+    <h2 class="section-title">What makes each group distinct</h2>
+    <p class="role">Fisher's exact test inside versus outside the group, false discovery rate controlled at 0.05</p>
+    <div id="groupDefining" class="pl-gd"></div>
+    <p class="provenance">Groups are labelled A and B, never named by demographics. Demographic overlays
+      are description, not explanation, and individual traits are never inferred from group membership.</p>
+  </div>
+</section>
+
+<!-- Clause checker -->
+<section class="section section-cream">
+  <div class="container">
+    <span class="pill">Step 03 &middot; The citation layer</span>
+    <h2 class="section-title">Five clauses, eight checks, three deliberate defects</h2>
+    <p class="role">The brief below is a demonstration written to the constrained format, including flaws on purpose</p>
+    <p style="max-width:80ch;">
+      Each factual clause carries one to five evidence units. Checks run in order and fail closed:
+      structure, origin and consent, validity, numbers, support, quantifiers, causal language,
+      group claims, coverage. The clause that fails is the clause that does not ship.
+    </p>
+
+    <div id="clauseChecks" class="pl-clauses"></div>
+
+    <div class="pl-metric-row" id="citationMetrics"></div>
+    <p class="provenance" id="c4Note"></p>
+  </div>
+</section>
+
+<!-- Metrics -->
+<section class="section">
+  <div class="container">
+    <span class="pill">Step 04 &middot; Publication metrics</span>
+    <h2 class="section-title">The numbers that would go on the evidence page</h2>
+    <p class="role">Measured ones are marked; the rest are honestly pending</p>
+    <table class="evidence-table" id="metricTable">
+      <thead><tr><th>Metric</th><th>Target</th><th>This run</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Status -->
+<section class="section">
+  <div class="container">
+    <span class="pill">Status</span>
+    <h2 class="section-title">What is built, what is specified, what needs people</h2>
+    <div class="cols-2" style="margin-top:1.5rem;">
+      <div>
+        <h3 class="sub-head">Built and running here</h3>
+        <ul class="plain-list">
+          <li>Smoothed agree rate with a Beta credible interval, bridging and strong bridging on the lowest group bound.</li>
+          <li>Divisive and broad-disagreement tests, with interval separation rather than a point-estimate gap.</li>
+          <li>Group-defining statements (Fisher exact, Benjamini&ndash;Hochberg).</li>
+          <li>Bootstrap stability with the adjusted Rand index, and a hard publish gate.</li>
+          <li>Clause segmentation, claim typing, and checks C0&ndash;C3, C5&ndash;C7 against a hashed evidence pack.</li>
+          <li>Deterministic number recomputation: the brief copies numbers, the code recalculates them.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub-head">Not run, and said so</h3>
+        <ul class="plain-list">
+          <li><b>C4, the independent verifier.</b> It needs a pinned second model family, a locked human-labelled set and negative controls. This page has none of those, so the check is reported as not run rather than quietly passed.</li>
+          <li><b>The human audit.</b> Citation precision is therefore blank, not estimated.</li>
+          <li><b>Weighted agreement, anchor statements across waves, Hungarian group matching.</b> Specified, waiting on a real panel.</li>
+          <li><b>Respondent consent at source.</b> The open data is already consented for public release; a live deployment gates each quote on its recorded scope.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="provenance" style="margin-top:1.5rem;">
+      Thresholds on this page are the specification&rsquo;s proposed values, marked for statistical
+      review in the source document. Participation is self-selected: this conversation was open to
+      residents of Bowling Green and Warren County, and no sampling frame or weighting was applied.
+      That limit is stated on every report rather than buried in a footnote.
+    </p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">JanPulse.</span>
+        <p>The AI-native citizen intelligence platform. Hyperlocal, contextual, continuous &mdash; built from
+          live conversations with real people, fused with validated behavioural frameworks.</p>
+        <p class="provenance" style="margin-top:0.75rem;">A venture of AI Native Organisations.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="/#how">How it works</a>
+        <a href="/foundations.html">Foundations &mdash; case studies</a>
+        <a href="/library.html">Pulse Library</a>
+        <a href="/consensus.html">Consensus &amp; citation</a>
+        <a href="/technology.html">Technology &amp; measurement</a>
+        <a href="/rate.html">Ratings sheet (open)</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/#team">Team</a>
+        <a href="/#book">The AI Native State</a>
+        <a href="/#ask">The raise</a>
+        <a href="https://ainativeorganisations.com" target="_blank" rel="noopener">AI Native Organisations</a>
+        <a href="mailto:hello@ainativeorganisations.com">Email us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 JanPulse &mdash; a venture of AI Native Organisations. Consensus results computed on
+      the Bowling Green conversation, Pol.is open data, CC BY 4.0, The Computational Democracy Project.
+      The citation brief is a synthetic demonstration; its clauses are not findings about any population.
+    </div>
+  </div>
+</footer>
+
+<script src="assets/jp-layer-demo.js"></script>
+<script>
+function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
+
+function el(tag, cls, text){
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined && text !== null) n.textContent = text;
+  return n;
+}
+function chip(status){
+  var s = el('span', 'pl-chip pl-chip-' + status.replace(/[^a-z]/g,''), status);
+  return s;
+}
+
+(function(){
+  var D = window.JANPULSE_LAYER;
+  if (!D) return;
+  var C = D.consensus, L = D.citations;
+
+  // corpus badge
+  document.getElementById('corpusBadge').textContent =
+    C.groups.length + ' opinion groups · ' + D.corpus.participants.toLocaleString() +
+    ' participants · ' + D.corpus.statements + ' statements · real open data, CC BY 4.0';
+
+  // ---- requirements table (statuses are authored, not computed) -------------
+  var REQS = [
+    ['R1','Map, not average','built','Groups plus bridging / divisive lists are the default output.'],
+    ['R2','Consensus is an explicit rule','built','Lowest group bound ≥ 0.50, n ≥ 15, stability share ≥ 0.80.'],
+    ['R3','1–5 citations per factual clause','built','Checked structurally below; the brief shows one clause with zero.'],
+    ['R4','Citations machine-checked, fail closed','partial','C0–C3 and C5–C7 run; C4 (independent verifier) does not.'],
+    ['R5','Numbers computed by code','built','The checker recomputes each number from the vote matrix.'],
+    ['R6','Human-origin only','built','Origin field enforced on evidence; leak count reported.'],
+    ['R7','Versioned and reproducible','built','Snapshot, run, codebook, instrument and evidence-set hash recorded.'],
+    ['R8','Privacy','partial','Pseudonymous IDs and cell floors; consent gating is specified per quote.'],
+    ['R9','Validity-aware claims','built','Amber evidence adds a caveat; red or unvalidated is refused.'],
+    ['R10','Sampling limit stated','built','Self-selection and frame are named on every report.']
+  ];
+  var tb = document.querySelector('#reqTable tbody');
+  REQS.forEach(function(r){
+    var tr = el('tr');
+    tr.appendChild(el('td','pl-mono',r[0]));
+    tr.appendChild(el('td',null,r[1]));
+    var td = el('td'); td.appendChild(chip(r[2])); tr.appendChild(td);
+    tr.appendChild(el('td',null,r[3]));
+    tb.appendChild(tr);
+  });
+
+  // ---- group cards ---------------------------------------------------------
+  var grouped = C.groups.reduce(function(a,g){ return a + g.size; }, 0);
+  var gc = document.getElementById('groupCards');
+  C.groups.forEach(function(g){
+    var card = el('div','card card-quiet pl-group');
+    card.appendChild(el('h4',null,'Group ' + g.label));
+    card.appendChild(el('p','pl-num', g.size.toLocaleString() + ' of ' +
+      grouped.toLocaleString() + ' grouped participants (' + g.share + '%)'));
+    var bar = el('div','pl-bar'); var fill = el('span'); fill.style.width = g.share + '%';
+    bar.appendChild(fill); card.appendChild(bar);
+    gc.appendChild(card);
+  });
+  if (D.corpus.ungrouped) {
+    var un = el('p','provenance');
+    un.textContent = D.corpus.ungrouped.toLocaleString() + ' participants are outside both groups: ' +
+      'they did not vote on enough statements for the clustering to place them. They are excluded ' +
+      'from group statistics, not counted as neutral.';
+    gc.parentNode.insertBefore(un, gc.nextSibling);
+  }
+
+  var rs = document.getElementById('runStats');
+  function stat(label, value, sub){
+    var d = el('div','pl-stat');
+    d.appendChild(el('div','pl-stat-value', value));
+    d.appendChild(el('div','pl-stat-label', label));
+    if (sub) d.appendChild(el('div','pl-stat-sub', sub));
+    rs.appendChild(d);
+  }
+  var own = C.own_clustering;
+  stat('grouping used', C.k + ' groups', C.grouping_source);
+  stat('our clustering vs published', 'ARI ' + (own.ari_vs_published === null ? '—' : own.ari_vs_published),
+       'k=' + own.k + ', sizes ' + own.sizes.join(' / ') + ' — not the published split');
+  stat('bootstrap stability', C.stability.median_ari === null ? 'not measured' : C.stability.median_ari,
+       'median ARI over ' + C.stability.usable + ' resamples; 5th pct ' + C.stability.p5_ari);
+  stat('bridging / divisive', C.counts.bridging + ' / ' + C.counts.divisive,
+       'strong bridging ' + C.counts.strong_bridging + ' · broad disagreement ' + C.counts.broad_disagreement);
+
+  var gate = el('p','dark-caption');
+  var ariOwn = C.stability.median_ari;
+  if (ariOwn === null) {
+    gate.textContent = 'Stability could not be measured in this run, so no group structure should be published.';
+  } else if (ariOwn >= 0.75) {
+    gate.textContent = 'Median ARI ' + ariOwn + ' clears the 0.75 publish gate: the clustering is stable under resampling.';
+  } else if (ariOwn >= 0.60) {
+    gate.textContent = 'Median ARI ' + ariOwn + ' sits between 0.60 and 0.75: the specification labels the structure tentative.';
+  } else {
+    gate.textContent = 'Median ARI ' + ariOwn + ' is below 0.60, so the specification says to report no stable group ' +
+      'structure — and that is what this page does. Our clustering is not published. The statement lists below are ' +
+      'computed on the grouping released with the conversation, so the layer can still be exercised and its ' +
+      'weakness stated rather than hidden.';
+  }
+  rs.parentNode.insertBefore(gate, rs.nextSibling);
+
+  // ---- statement lists -----------------------------------------------------
+  function itemList(host, items, kind){
+    if (!items.length) { host.appendChild(el('p','dark-caption','None at the current thresholds.')); return; }
+    items.forEach(function(it){
+      var row = el('div','pl-item-row');
+      row.appendChild(el('span','pl-item-id','#' + it.statement_id));
+      var body = el('div','pl-item-body');
+      body.appendChild(el('p','pl-item-text', it.text));
+      var meta = el('p','pl-meta', kind === 'bridging'
+        ? 'overall ' + (100*it.theta).toFixed(0) + '% · lowest group bound ' +
+          Math.min.apply(null, Object.keys(it.lcb_by_group).map(function(k){return it.lcb_by_group[k];})).toFixed(2)
+        : 'group A ' + (100*it.lcb_by_group.A).toFixed(0) + '% · group B ' + (100*it.lcb_by_group.B).toFixed(0) + '%');
+      if (it.stability_share !== null) meta.textContent += ' · stability ' + Math.round(100*it.stability_share) + '%';
+      body.appendChild(meta);
+      row.appendChild(body);
+      host.appendChild(row);
+    });
+  }
+  itemList(document.getElementById('bridgingList'), C.bridging, 'bridging');
+  itemList(document.getElementById('divisiveList'), C.divisive, 'divisive');
+
+  // ---- group-defining ------------------------------------------------------
+  var gd = document.getElementById('groupDefining');
+  Object.keys(C.group_defining).forEach(function(g){
+    var col = el('div','pl-gd-col');
+    col.appendChild(el('h3','sub-head','Group ' + g));
+    var rows = C.group_defining[g];
+    if (!rows.length) col.appendChild(el('p','provenance','No statements survive the FDR threshold.'));
+    rows.forEach(function(r){
+      var d = el('div','pl-gd-row');
+      d.appendChild(el('p','pl-item-text', r.text));
+      d.appendChild(el('p','pl-meta', 'inside ' + Math.round(100*r.in_rate) + '% vs outside ' +
+        Math.round(100*r.out_rate) + '% · q = ' + (r.q < 0.001 ? '<0.001' : r.q.toFixed(3))));
+      col.appendChild(d);
+    });
+    gd.appendChild(col);
+  });
+
+  // ---- clause checks -------------------------------------------------------
+  var host = document.getElementById('clauseChecks');
+  var ORDER = ['C0','C1','C2','C3','C4','C5','C6','C7'];
+  L.clauses.forEach(function(c){
+    var card = el('div','pl-clause pl-clause-' + c.verdict);
+    var head = el('div','pl-clause-head');
+    head.appendChild(el('span','pl-clause-id', c.clause_id.toUpperCase()));
+    head.appendChild(el('span','pl-clause-type', c.claim_type));
+    head.appendChild(el('span','pl-verdict pl-verdict-' + c.verdict, c.verdict));
+    card.appendChild(head);
+    card.appendChild(el('p','pl-clause-text', c.text));
+
+    var checks = el('div','pl-checks');
+    ORDER.forEach(function(k){
+      var v = c.checks[k] || 'n/a';
+      var b = el('span','pl-check pl-check-' + v.replace(/[^a-z]/g,''), k + ' ' + v);
+      checks.appendChild(b);
+    });
+    card.appendChild(checks);
+
+    if (c.reasons.length) {
+      var ul = el('ul','pl-reasons');
+      c.reasons.forEach(function(r){ ul.appendChild(el('li',null,r)); });
+      card.appendChild(ul);
+    }
+    if (c.evidence.length) {
+      var ev = el('div','pl-evidence');
+      c.evidence.forEach(function(e){
+        ev.appendChild(el('p','pl-evidence-line',
+          e.id + ' · ' + e.kind + ' · validity ' + e.validity + ' · consent ' + e.consent.join(', ')));
+        ev.appendChild(el('p','pl-evidence-content', e.content));
+      });
+      card.appendChild(ev);
+    }
+    host.appendChild(card);
+  });
+
+  // ---- metrics -------------------------------------------------------------
+  var mr = document.getElementById('citationMetrics');
+  function metric(label, value, sub){
+    var d = el('div','pl-metric');
+    d.appendChild(el('div','pl-metric-value', value));
+    d.appendChild(el('div','pl-metric-label', label));
+    if (sub) d.appendChild(el('div','pl-metric-sub', sub));
+    mr.appendChild(d);
+  }
+  var M = L.metrics;
+  metric('citation coverage', M.coverage + '%', M.cited + ' of ' + M.requiring_evidence + ' clauses needing evidence');
+  metric('number accuracy', M.number_accuracy + '%', M.numbers_checked + ' numbers recomputed; the failing clause is caught');
+  metric('clauses removed', M.removed, 'of ' + M.clauses + ' — fail-closed, as specified');
+  metric('leak count', M.leak_count, 'non-human evidence in the brief');
+  metric('citation precision', '—', 'requires the human audit; not estimated');
+  document.getElementById('c4Note').textContent = D.meta.c4_note;
+
+  // ---- spec metrics table --------------------------------------------------
+  var MT = [
+    ['Citation coverage', '100% after repair', M.coverage + '%', 'measured'],
+    ['Citation precision', '≥ 95%', '—', 'pending audit'],
+    ['Number accuracy', '100%', M.number_accuracy + '%', 'measured'],
+    ['Verifier false-accept rate', '≤ 5%', '—', 'C4 not run'],
+    ['Fully supported share', 'report only', M.removed + ' removed', 'measured'],
+    ['Group stability (median ARI)', '≥ 0.75 to publish groups',
+      C.stability.median_ari === null ? '—' : C.stability.median_ari, C.stability.median_ari === null ? 'pending' : 'measured'],
+    ['Consensus stability', '≥ 80% of resamples', 'per-item shares shown', 'measured'],
+    ['Auditor agreement (kappa)', '≥ 0.70', '—', 'needs auditors'],
+    ['Leak count', '0', String(M.leak_count), 'measured']
+  ];
+  var mtb = document.querySelector('#metricTable tbody');
+  MT.forEach(function(r){
+    var tr = el('tr');
+    tr.appendChild(el('td',null,r[0]));
+    tr.appendChild(el('td','pl-num',r[1]));
+    tr.appendChild(el('td','pl-num',r[2]));
+    var td = el('td');
+    td.appendChild(chip(r[3] === 'measured' ? 'measured' : 'pending'));
+    tr.appendChild(td);
+    mtb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>
