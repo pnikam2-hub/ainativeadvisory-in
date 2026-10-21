@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JanPulse — one-page brief for a policy buyer</title>
+<meta name="description" content="What JanPulse delivers, what it costs, how the evidence is checked, and what it does not claim. One page for a department or foundation buyer.">
+<style>
+  :root {
+    --ink:#1c1c1c; --ink2:#4a4a4a; --muted:#626262; --teal:#0f4c5c;
+    --gold:#8a5713; --cream:#f7f5ef; --line:#e2e7ee; --white:#fff; --red:#9c3b1b;
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'Manrope', -apple-system, 'Segoe UI', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #eceae4; color: var(--ink); font-family: var(--sans); font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .sheet {
+    width: 210mm; min-height: 297mm; margin: 18px auto; background: var(--white);
+    padding: 14mm 14mm 10mm; box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+  header { border-bottom: 2px solid var(--teal); padding-bottom: 8px; margin-bottom: 12px;
+           display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .logo { font-family: var(--serif); font-size: 26px; color: var(--teal); letter-spacing: -.01em; }
+  .tagline { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.15; margin-bottom: 6px; color: var(--ink); }
+  .lede { font-size: 13px; color: var(--ink2); max-width: 62ch; }
+  h2 { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--teal);
+       margin: 14px 0 5px; padding-bottom: 3px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 12px; margin-bottom: 2px; color: var(--ink); }
+  p { color: var(--ink2); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  ul { list-style: none; }
+  ul li { font-size: 12px; color: var(--ink2); padding-left: 12px; position: relative; margin-bottom: 3px; }
+  ul li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
+  ul.tight li { margin-bottom: 1px; }
+  .box { background: var(--cream); border-left: 3px solid var(--teal); padding: 8px 10px; }
+  .box p { font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { text-align: left; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase;
+       color: var(--muted); border-bottom: 1px solid var(--line); padding: 4px 5px; background: var(--cream); }
+  td { font-size: 11.5px; color: var(--ink2); padding: 4px 5px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
+  .fig { font-family: var(--serif); font-size: 19px; color: var(--teal); line-height: 1.1; }
+  .fig-label { font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+  .note { font-size: 10.5px; color: var(--muted); margin-top: 5px; }
+  .stamp { border: 1px solid var(--gold); color: var(--gold); font-size: 9.5px; letter-spacing: .1em;
+           text-transform: uppercase; padding: 2px 6px; white-space: nowrap; }
+  footer { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 7px;
+           display: flex; justify-content: space-between; gap: 12px; font-size: 10.5px; color: var(--muted); }
+  .avoid { break-inside: avoid; page-break-inside: avoid; }
+  @page { size: A4; margin: 8mm; }
+  @media print {
+    body { background: #fff; font-size: 8.6pt; line-height: 1.4; zoom: 0.95; }
+    .three { grid-template-columns: repeat(3, 1fr) !important; }
+    .two { grid-template-columns: 1fr 1fr !important; }
+    .sheet { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+    header { margin-bottom: 4pt; padding-bottom: 4pt; }
+    .logo { font-size: 20pt; }
+    h1 { font-size: 15pt; margin-bottom: 3pt; }
+    h2 { font-size: 7.4pt; margin: 7pt 0 2pt; padding-bottom: 1.5pt; }
+    ul li, td, p, .lede, .box p { font-size: 8.2pt; line-height: 1.35; }
+    ul li { margin-bottom: 1pt; }
+    .fig { font-size: 12pt; }
+    .note, .fig-label, .tagline { font-size: 7.2pt; }
+    footer { margin-top: 5pt; padding-top: 4pt; font-size: 7pt; }
+  }
+  @media (max-width: 700px) {
+    .sheet { width: auto; margin: 0; padding: 18px; min-height: 0; }
+    .two, .three { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <div>
+      <div class="logo">JanPulse.</div>
+      <div class="tagline">Citizen intelligence for policy &middot; a venture of AI Native Organisations</div>
+    </div>
+    <div class="stamp">Buyer brief &middot; one page</div>
+  </header>
+
+  <h1>What a district actually thinks — with the evidence attached.</h1>
+  <p class="lede">
+    JanPulse interviews residents in their own language, maps where opinion groups agree and where
+    they split, and writes a brief in which every factual sentence is tied to the respondent evidence
+    behind it and machine-checked before delivery. It is built for policy buyers who have to defend
+    a finding in public, not just circulate a report.
+  </p>
+
+  <h2>What you receive</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li><b>A map, not an average.</b> Opinion groups, the statements that bridge all of them, and
+          the statements that divide them.</li>
+        <li><b>Confidence on every figure.</b> Agreement rates carry a credible interval, sample size
+          and the group-level breakdown — no bare percentages.</li>
+        <li><b>A cited brief.</b> Every factual clause carries one to five evidence references, and a
+          checker recomputes every number.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><b>A coverage report first.</b> What your question set already has an answer to, how old
+          that evidence is, and what genuinely needs fieldwork.</li>
+        <li><b>A reproducibility record.</b> Snapshot, run, codebook and instrument versions, so a
+          reviewer or auditor can re-derive the result.</li>
+        <li><b>A consent register.</b> Who agreed to what, per respondent, including whether their words
+          may be quoted or reused.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>What it costs</h2>
+  <table class="avoid">
+    <thead>
+      <tr><th>Engagement</th><th>Indicative fee</th><th>Time</th><th>What it covers</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Coverage diagnostic</b></td>
+        <td class="num">₹1.5–2.5 lakh</td>
+        <td class="num">2 weeks</td>
+        <td>Your question set run against the existing corpus and public data: what is already answered,
+          what is stale, what fresh fieldwork is required, and a costed fieldwork plan.</td>
+      </tr>
+      <tr>
+        <td><b>Single study</b></td>
+        <td class="num">₹3–15 lakh</td>
+        <td class="num">6–8 weeks</td>
+        <td>Instrument design, fieldwork management in one or more languages, opinion map, cited brief,
+          methods annex. Fee varies with sample size, districts and languages.</td>
+      </tr>
+      <tr>
+        <td><b>Multi-wave programme</b></td>
+        <td class="num">₹12–20 lakh / year</td>
+        <td class="num">3–4 waves</td>
+        <td>Repeated waves with matched cohorts, trend analysis, and a subscription to query your own
+          corpus between waves.</td>
+      </tr>
+      <tr>
+        <td><b>API / assistant access</b></td>
+        <td class="num">₹75k–1.5 lakh / yr</td>
+        <td class="num">from week 2</td>
+        <td>Your analysts query the corpus through their own AI tools; answers return with citations.
+          Metered at roughly ₹2,500 per 1,000 queries.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">
+    Indicative fees for discussion, not a quotation. Fieldwork costs — respondent incentives, enumerator
+    time, translation — are billed at cost with the invoices attached. Fees are per defensible report,
+    never per interview: we are not selling volume, we are selling a finding you can stand behind.
+    The avoidable cost we remove first is duplicate fieldwork — in the demonstration corpus roughly half
+    of a proposed twelve-question instrument already had prior evidence, some of it stale.
+  </p>
+
+  <h2>How the evidence is checked</h2>
+  <div class="three avoid">
+    <div>
+      <div class="fig">2,031</div>
+      <div class="fig-label">participants in the public conversation our method was demonstrated on</div>
+    </div>
+    <div>
+      <div class="fig">896</div>
+      <div class="fig-label">statements clustered into groups, bridging and divisive</div>
+    </div>
+    <div>
+      <div class="fig">3 of 3</div>
+      <div class="fig-label">planted errors caught by the citation checker (consent, numbers, causal claim)</div>
+    </div>
+  </div>
+  <p class="note">
+    Method demonstrated on the Bowling Green conversation released as open data by the Computational
+    Democracy Project (CC BY 4.0), 226,148 votes. A public dataset, not a JanPulse client study.
+  </p>
+
+  <h2>What we do not claim</h2>
+  <div class="box avoid">
+    <ul class="tight">
+      <li><b>Not a random sample.</b> Respondents are recruited through partner communities and opt in.
+        Every report names the sampling frame and where it may not generalise.</li>
+      <li><b>No map below the floor.</b> Under roughly 30 respondents per group we report that no stable
+        group structure exists instead of drawing one. Small groups are suppressed, not merged away.</li>
+      <li><b>No invented figures.</b> Numbers in a brief are copied from evidence units and recomputed by
+        code. Where a scorer has no measured accuracy, claims resting on it are labelled thin.</li>
+      <li><b>No synthetic people.</b> Synthetic data is used only to demonstrate interfaces, and always
+        labelled as such.</li>
+      <li><b>Consent, then erasure.</b> Consent is captured per respondent — quoting and reuse included —
+        re-checked at the point of use, and erasure is honoured with a receipt. Respondents are
+        pseudonymous and their answers are held apart from contact details.</li>
+    </ul>
+  </div>
+
+  <h2>Next step</h2>
+  <p>
+    One question set, two weeks, ₹1.5–2.5 lakh: what is already known, what is missing, what a full study
+    would cost. If the diagnostic does not change your fieldwork plan, do not commission the study.
+  </p>
+
+  <footer>
+    <span>JanPulse · hello@ainativeorganisations.com · ainativeadvisory.in</span>
+    <span>Figures: MRSI Indian Research &amp; Insights Industry FY2025 (₹29,008 crore); ESOMAR Global Market Research 2025 (US$153bn). Fees are founder estimates.</span>
+  </footer>
+</div>
+</body>
+</html>
