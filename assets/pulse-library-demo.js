@@ -415,6 +415,240 @@ window.JANPULSE_PULSE_DEMO = {
       }
     ]
   },
+  "bridging": {
+    "simple_count": 5,
+    "bridging_count": 3,
+    "items": [
+      {
+        "id": "Q1",
+        "text": "I could find the application form without help",
+        "overall": 51.9,
+        "groups": [
+          {
+            "group": 0,
+            "n": 184,
+            "agree_pct": 44.6
+          },
+          {
+            "group": 1,
+            "n": 101,
+            "agree_pct": 65.0
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q2",
+        "text": "Document requirements (income, caste, domicile) stop me from completing the form",
+        "overall": 62.1,
+        "groups": [
+          {
+            "group": 0,
+            "n": 185,
+            "agree_pct": 57.8
+          },
+          {
+            "group": 1,
+            "n": 98,
+            "agree_pct": 70.0
+          }
+        ],
+        "simple_pass": true,
+        "bridging_pass": true
+      },
+      {
+        "id": "Q3",
+        "text": "Applying costs me time I cannot take off work",
+        "overall": 55.3,
+        "groups": [
+          {
+            "group": 0,
+            "n": 181,
+            "agree_pct": 66.1
+          },
+          {
+            "group": 1,
+            "n": 108,
+            "agree_pct": 37.3
+          }
+        ],
+        "simple_pass": true,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q4",
+        "text": "The portal works on the phone I actually own",
+        "overall": 29.8,
+        "groups": [
+          {
+            "group": 0,
+            "n": 183,
+            "agree_pct": 13.5
+          },
+          {
+            "group": 1,
+            "n": 104,
+            "agree_pct": 58.5
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q5",
+        "text": "I trust that my documents and data will be kept private",
+        "overall": 26.8,
+        "groups": [
+          {
+            "group": 0,
+            "n": 188,
+            "agree_pct": 18.9
+          },
+          {
+            "group": 1,
+            "n": 101,
+            "agree_pct": 41.7
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q6",
+        "text": "I know who to ask when a step fails",
+        "overall": 31.5,
+        "groups": [
+          {
+            "group": 0,
+            "n": 185,
+            "agree_pct": 21.9
+          },
+          {
+            "group": 1,
+            "n": 99,
+            "agree_pct": 49.5
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q7",
+        "text": "Linking my bank account is the hardest step",
+        "overall": 65.9,
+        "groups": [
+          {
+            "group": 0,
+            "n": 186,
+            "agree_pct": 59.0
+          },
+          {
+            "group": 1,
+            "n": 99,
+            "agree_pct": 78.2
+          }
+        ],
+        "simple_pass": true,
+        "bridging_pass": true
+      },
+      {
+        "id": "Q8",
+        "text": "The deadline is clearly communicated",
+        "overall": 40.1,
+        "groups": [
+          {
+            "group": 0,
+            "n": 184,
+            "agree_pct": 19.4
+          },
+          {
+            "group": 1,
+            "n": 101,
+            "agree_pct": 77.7
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q9",
+        "text": "Applicants like me are treated fairly by the office",
+        "overall": 26.1,
+        "groups": [
+          {
+            "group": 0,
+            "n": 180,
+            "agree_pct": 21.4
+          },
+          {
+            "group": 1,
+            "n": 94,
+            "agree_pct": 35.4
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q10",
+        "text": "I would encourage a friend to apply",
+        "overall": 53.1,
+        "groups": [
+          {
+            "group": 0,
+            "n": 175,
+            "agree_pct": 52.0
+          },
+          {
+            "group": 1,
+            "n": 100,
+            "agree_pct": 54.9
+          }
+        ],
+        "simple_pass": false,
+        "bridging_pass": false
+      },
+      {
+        "id": "Q11",
+        "text": "The language of the form is a barrier for my household",
+        "overall": 70.3,
+        "groups": [
+          {
+            "group": 0,
+            "n": 185,
+            "agree_pct": 75.9
+          },
+          {
+            "group": 1,
+            "n": 96,
+            "agree_pct": 59.2
+          }
+        ],
+        "simple_pass": true,
+        "bridging_pass": true
+      },
+      {
+        "id": "Q12",
+        "text": "Travel to the office is a barrier",
+        "overall": 54.7,
+        "groups": [
+          {
+            "group": 0,
+            "n": 191,
+            "agree_pct": 57.0
+          },
+          {
+            "group": 1,
+            "n": 105,
+            "agree_pct": 50.5
+          }
+        ],
+        "simple_pass": true,
+        "bridging_pass": false
+      }
+    ]
+  },
   "citation": {
     "claim": "Document requirements are the most widely reported barrier, and the one with the least disagreement across opinion groups.",
     "item": "Q11",

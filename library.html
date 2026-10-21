@@ -108,6 +108,12 @@
       confidence. Because the two probabilities sum to at most one, a statement cannot appear in
       both lists &mdash; that is a proof, not a filter.
     </p>
+    <p class="dark-body" style="max-width:78ch;">
+      Each statement is then tested again <b>inside every opinion group</b>. A statement carried by
+      one large bloc is not consensus, however large its overall majority; only statements that clear
+      the same threshold in both groups are marked as bridging.
+    </p>
+    <p class="pill" id="bridgeSummary" style="margin-top:1.25rem;display:inline-block;background:rgba(255,255,255,.1);color:#e8c88a;"></p>
 
     <div class="pl-two-col" style="margin-top:2rem;">
       <div>
@@ -284,6 +290,16 @@ function toggleNav() {
   });
 
   // ---- consensus ----------------------------------------------------------
+  var bridgeById = {};
+  if (D.bridging) {
+    D.bridging.items.forEach(function (it) { bridgeById[it.id] = it; });
+    var bs = document.getElementById('bridgeSummary');
+    if (bs) {
+      bs.textContent = D.bridging.simple_count + ' statements clear a simple majority · ' +
+        D.bridging.bridging_count + ' survive inside every group';
+    }
+  }
+
   function fillList(id, items, isAgree) {
     var ul = document.getElementById(id);
     items.forEach(function (it) {
@@ -306,6 +322,20 @@ function toggleNav() {
       meta.className = 'pl-meta';
       meta.textContent = 'z = ' + it.z + ' · n = ' + it.n;
       li.appendChild(head); li.appendChild(body); li.appendChild(meta);
+
+      var b = bridgeById[it.id];
+      if (b && b.simple_pass) {
+        var breakdown = document.createElement('p');
+        breakdown.className = 'pl-meta';
+        breakdown.textContent = b.groups.map(function (g) {
+          return 'group ' + (g.group + 1) + ': ' + g.agree_pct + '%';
+        }).join(' · ');
+        li.appendChild(breakdown);
+        var badge = document.createElement('span');
+        badge.className = 'pl-bridge ' + (b.bridging_pass ? 'pl-bridge-yes' : 'pl-bridge-no');
+        badge.textContent = b.bridging_pass ? 'bridges both groups' : 'carried by one group';
+        li.appendChild(badge);
+      }
       ul.appendChild(li);
     });
   }

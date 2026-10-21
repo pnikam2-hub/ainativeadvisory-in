@@ -435,6 +435,17 @@
 }
 .pl-list li p { font-size: 0.92rem; color: rgba(255,255,255,.86); line-height: 1.5; }
 .pl-list li p.pl-meta { font-size: 0.75rem; color: rgba(255,255,255,.5); margin-top: 0.3rem; font-variant-numeric: tabular-nums; }
+.pl-bridge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
+}
+.pl-bridge-yes { color: #e8c88a; }
+.pl-bridge-no { color: rgba(255,255,255,.45); }
 
 /* opinion groups */
 .pl-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
